@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swt.apis2015.interfaces;
-
-import swt.apis2015.entities.HealthProfessional;
+package swt.apis2015.enums;
 
 /**
  *
- * @author B-Real
+ * @author Administrator
  */
-public interface UserSessionHandlerI {
-    public HealthProfessional getUser();
+public enum HPRole {
+    DOCTOR,
+    NURSE    
 }

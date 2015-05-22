@@ -5,49 +5,125 @@
  */
 package swt.apis2015.entities;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import javax.persistence.MappedSuperclass;
 
 /**
  *
  * @author B-Real
  */
-public abstract class Person {
-    
-    private int personId;
-    private String name;
-    private String vorname;
-    private Date gebDatum;
+@MappedSuperclass
+public abstract class Person implements Serializable {
 
-    public int getPersonId() {
-        return personId;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String surname;
+    private String firstname;
+    private Date birthday;
+    private String street;
+    private String city;
+    private String postalCode;
+    private String country;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setPersonId(int personId) {
-        this.personId = personId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Person)) {
+            return false;
+        }
+        Person other = (Person) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
-    public String getVorname() {
-        return vorname;
+    @Override
+    public String toString() {
+        return "swt.apis2015.entities.PersonE[ id=" + id + " ]";
     }
 
-    public void setVorname(String vorname) {
-        this.vorname = vorname;
+    public String getFirstName() {
+        return firstname;
     }
 
-    public Date getGebDatum() {
-        return gebDatum;
+    public void setFirstName(String firstName) {
+        this.firstname = firstName;
     }
 
-    public void setGebDatum(Date gebDatum) {
-        this.gebDatum = gebDatum;
+    public Date getBirthday() {
+        return birthday;
     }
-        
+
+//    public String getBirthdayAsString() {
+//        return birthday;
+//    }
+    public void setBirthday(Date gebDatum) {
+        this.birthday = gebDatum;
+        System.out.println(this.birthday.toString());
+//        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+//        this.birthday =  format.parse(gebDatum);
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 }

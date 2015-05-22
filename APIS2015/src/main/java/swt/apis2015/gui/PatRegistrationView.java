@@ -5,11 +5,16 @@
  */
 package swt.apis2015.gui;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
+import swt.apis2015.entities.Patient;
 import swt.apis2015.input.VkSimulator;
+import swt.apis2015.logic.PatientManagement;
 
 /**
  *
@@ -48,6 +53,15 @@ public class PatRegistrationView extends javax.swing.JFrame {
         vname = new javax.swing.JLabel();
         geb = new javax.swing.JLabel();
         vs = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        ort = new javax.swing.JLabel();
+        plz = new javax.swing.JLabel();
+        strasse = new javax.swing.JLabel();
+        land = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,6 +105,24 @@ public class PatRegistrationView extends javax.swing.JFrame {
 
         vs.setText("jLabel6");
 
+        jLabel1.setText("Adresse");
+
+        jLabel2.setText("Ort:");
+
+        jLabel3.setText("PLZ:");
+
+        jLabel4.setText("Strasse:");
+
+        jLabel5.setText("Land:");
+
+        ort.setText("jLabel6");
+
+        plz.setText("jLabel7");
+
+        strasse.setText("jLabel8");
+
+        land.setText("jLabel9");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -98,10 +130,6 @@ public class PatRegistrationView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(10, 10, 10))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -113,21 +141,41 @@ public class PatRegistrationView extends javax.swing.JFrame {
                                     .addGap(5, 5, 5))
                                 .addComponent(PatId, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(OID)
-                            .addComponent(VersichertenStatu))
-                        .addGap(27, 27, 27)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(VersichertenStatu)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(vs)
-                            .addComponent(oid)
-                            .addComponent(pId, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nname)
-                            .addComponent(vname)
-                            .addComponent(geb))
-                        .addContainerGap(22, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(oid)
+                                    .addComponent(pId, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nname)
+                                    .addComponent(vname)
+                                    .addComponent(geb))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                                .addComponent(jButton2)
+                                .addGap(10, 10, 10))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(strasse)
+                                    .addComponent(land)
+                                    .addComponent(vs)
+                                    .addComponent(ort)
+                                    .addComponent(plz))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jButton1)
-                    .addContainerGap(54, Short.MAX_VALUE)))
+                    .addContainerGap(125, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,20 +205,38 @@ public class PatRegistrationView extends javax.swing.JFrame {
                     .addComponent(VersichertenStatu)
                     .addComponent(vs))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ort)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(plz)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(strasse))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(land))
+                .addGap(21, 21, 21)
                 .addComponent(jButton2)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jButton1)
-                    .addContainerGap(167, Short.MAX_VALUE)))
+                    .addContainerGap(301, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,25 +249,53 @@ public class PatRegistrationView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            VkSimulator vks = VkSimulator.getInstance().ladeKarte();
-            oid.setText(String.valueOf((Integer)vks.getPatientOID()));
-            nname.setText(vks.getName());
-            vname.setText(vks.getVorname());
-            geb.setText(vks.getGebDatum());
-            vs.setText(String.valueOf((Integer)vks.getVersicherungsverhaeltnis()));        
+            Patient tmp = VkSimulator.getInstance().ladeKarte();
+            oid.setText(String.valueOf(tmp.getPatientOID()));
+            nname.setText(tmp.getSurname());
+            vname.setText(tmp.getFirstName());            
+            DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+            geb.setText(format.format(tmp.getBirthday()));
+            vs.setText(String.valueOf(tmp.getVersicherungsverhaeltnis()));
+            ort.setText(tmp.getCity());
+            plz.setText(tmp.getPostalCode());
+            strasse.setText(tmp.getStreet());
+            land.setText(tmp.getCountry());
+
         } catch (IOException ex) {
             Logger.getLogger(PatRegistrationView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
+            Logger.getLogger(PatRegistrationView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (java.text.ParseException ex) {
             Logger.getLogger(PatRegistrationView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
-        this.dispose();
-        EpaView ew = new EpaView();
-        ew.setVisible(true);
+        try {
+            PatientManagement.getInstance().addPatient(initPat());
+            this.setVisible(false);
+            this.dispose();
+            EpaView ew = new EpaView();
+            ew.setVisible(true);
+        } catch (java.text.ParseException ex) {
+            Logger.getLogger(PatRegistrationView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private Patient initPat() throws java.text.ParseException {
+        Patient pat = new Patient();
+        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        pat.setBirthday(format.parse(geb.getText()));
+        pat.setCity(ort.getText());
+        pat.setCountry(land.getText());
+        pat.setFirstName(vname.getText());
+        pat.setPatientOID(Integer.parseInt(oid.getText()));
+        pat.setPostalCode(plz.getText());
+        pat.setStreet(strasse.getText());
+        pat.setSurname(nname.getText());
+        pat.setVersicherungsverhaeltnis(Integer.parseInt(vs.getText()));
+        return pat;
+    }
 
     /**
      * @param args the command line arguments
@@ -249,10 +343,19 @@ public class PatRegistrationView extends javax.swing.JFrame {
     private javax.swing.JLabel geb;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel land;
     private javax.swing.JLabel nname;
     private javax.swing.JLabel oid;
+    private javax.swing.JLabel ort;
     private javax.swing.JLabel pId;
+    private javax.swing.JLabel plz;
+    private javax.swing.JLabel strasse;
     private javax.swing.JLabel vname;
     private javax.swing.JLabel vs;
     // End of variables declaration//GEN-END:variables

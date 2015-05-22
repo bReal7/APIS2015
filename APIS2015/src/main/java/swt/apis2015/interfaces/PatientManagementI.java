@@ -17,6 +17,6 @@ public interface PatientManagementI {
     public List<Patient> getPatientByFirstname (String firstname);
     public Patient getPatientByOID (String oid);
     public List<Patient> getPatientByBirthday (String bth);
-    public Patient getPatientByUsername (String username,String pw);
     public List<Patient> getAllPatients ();
+    public boolean addPatient(Patient nPat);
 }

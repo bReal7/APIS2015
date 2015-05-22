@@ -8,9 +8,12 @@ package swt.apis2015.input;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import swt.apis2015.entities.Patient;
 
 /**
  *
@@ -18,11 +21,7 @@ import org.json.simple.parser.ParseException;
  */
 public class VkSimulator {
 
-    private int patientOID;
-    private String name;
-    private String vorname;
-    private String gebDatum;
-    private int versicherungsverhaeltnis;
+    private Patient loadedPat;
     private static final String filePath = "C:\\APIS2015\\vkSim\\patSim.json";
     private static VkSimulator instance = null;
 
@@ -37,54 +36,20 @@ public class VkSimulator {
         return instance;
     }
 
-    public VkSimulator ladeKarte() throws FileNotFoundException, IOException, ParseException {
+    public Patient ladeKarte() throws FileNotFoundException, IOException, ParseException, java.text.ParseException {
+        loadedPat = new Patient();
         FileReader reader = new FileReader(filePath);
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
-        this.name = (String) jsonObject.get("name");
-        this.vorname = (String) jsonObject.get("vorname");
-        this.gebDatum = (String) jsonObject.get("gebDatum");       
-        this.versicherungsverhaeltnis = Integer.parseInt ((String)jsonObject.get("versichertenverhaeltnis"));
-        return this;
-    }
-
-    public int getPatientOID() {
-        return patientOID;
-    }
-
-    public void setPatientOID(int patientOID) {
-        this.patientOID = patientOID;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getVorname() {
-        return vorname;
-    }
-
-    public void setVorname(String vorname) {
-        this.vorname = vorname;
-    }
-
-    public String getGebDatum() {
-        return gebDatum;
-    }
-
-    public void setGebDatum(String gebDatum) {
-        this.gebDatum = gebDatum;
-    }
-
-    public int getVersicherungsverhaeltnis() {
-        return versicherungsverhaeltnis;
-    }
-
-    public void setVersicherungsverhaeltnis(int versicherungsverhaeltnis) {
-        this.versicherungsverhaeltnis = versicherungsverhaeltnis;
+        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        loadedPat.setBirthday(format.parse((String) jsonObject.get("gebDatum")));
+        loadedPat.setSurname((String) jsonObject.get("name"));
+        loadedPat.setFirstName((String) jsonObject.get("vorname"));
+        loadedPat.setPostalCode((String) jsonObject.get("postalCode"));
+        loadedPat.setCity((String) jsonObject.get("city"));
+        loadedPat.setStreet((String) jsonObject.get("street"));
+        loadedPat.setCountry((String) jsonObject.get("state"));
+        loadedPat.setVersicherungsverhaeltnis(Integer.parseInt((String) jsonObject.get("versichertenverhaeltnis")));
+        return loadedPat;
     }
 }

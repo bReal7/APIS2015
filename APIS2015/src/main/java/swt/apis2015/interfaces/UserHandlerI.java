@@ -9,8 +9,12 @@ import swt.apis2015.entities.HealthProfessional;
 
 /**
  *
- * @author B-Real
+ * @author Administrator
  */
-public interface UserSessionHandlerI {
-    public HealthProfessional getUser();
+public interface UserHandlerI {
+    
+    public boolean login(String user, String password);
+    public void logout();
+    public HealthProfessional createHP(HealthProfessional hp);
+    public boolean deleteHP();
 }
