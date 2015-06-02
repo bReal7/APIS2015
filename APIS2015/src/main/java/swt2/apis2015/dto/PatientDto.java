@@ -3,23 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swt.apis2015.entities;
+package swt2.apis2015.dto;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
 import swt.apis2015.enums.InsurenceContract;
 
 /**
  *
  * @author B-Real
  */
-@Entity
-public class Patient extends Person implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class PatientDto extends PersonDto{
     private int patientOID;
     private InsurenceContract insuranceContract;
-
+    
+    public PatientDto() {
+    }
+    
     public int getPatientOID() {
         return patientOID;
     }
@@ -28,15 +26,15 @@ public class Patient extends Person implements Serializable {
         this.patientOID = patientOID;
     }
 
-    public InsurenceContract getVersicherungsverhaeltnis() {
+    public InsurenceContract getInsuranceContract() {
         return insuranceContract;
     }
 
-    public void setVersicherungsverhaeltnis(String insuranceContract) {
-                if (insuranceContract == "AOK" )
+    public void setInsuranceContract(String insuranceContract) {
+        if (insuranceContract == "AOK" )
         this.insuranceContract = InsurenceContract.AOK;
         else{
             this.insuranceContract = InsurenceContract.Barmer;
         }
-    }
+    }    
 }

@@ -8,9 +8,10 @@ package swt.apis2015.gui;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import swt.apis2015.entities.Patient;
-import swt.apis2015.logic.PatientManagement;
+import swt.apis2015.logic.PatientDaoImpl;
+import swt2.apis2015.dto.PatientDto;
 
 /**
  *
@@ -42,7 +43,7 @@ public class PatientSuchenView extends javax.swing.JFrame {
         Nachname = new javax.swing.JLabel();
         Vorname = new javax.swing.JLabel();
         suchenButton = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        NachnameTf = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -75,7 +76,7 @@ public class PatientSuchenView extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText(" ");
+        NachnameTf.setText(" ");
 
         jTextField2.setText("  ");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +98,7 @@ public class PatientSuchenView extends javax.swing.JFrame {
                             .addComponent(Vorname))
                         .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NachnameTf, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField2)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -110,7 +111,7 @@ public class PatientSuchenView extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Nachname)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NachnameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Vorname)
@@ -124,37 +125,42 @@ public class PatientSuchenView extends javax.swing.JFrame {
 
         resultT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nachname", "Vorname", "Geburtstag", "PLZ", "Ort", "Straße"
+                "Id", "Nachname", "Vorname", "Geburtstag", "PLZ", "Ort", "Strasse"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        resultT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resultTMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(resultT);
@@ -165,7 +171,7 @@ public class PatientSuchenView extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -197,16 +203,29 @@ public class PatientSuchenView extends javax.swing.JFrame {
 
     private void suchenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suchenButtonActionPerformed
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        List<Patient> pl = PatientManagement.getInstance().getAllPatients();
-        int i=0;
-        for (Patient x : pl){
-                dtm.insertRow(i++, new Object[]{x.getSurname(),x.getFirstName(),"",x.getPostalCode(),x.getCity(),x.getStreet()});
+        List<PatientDto> pl = PatientDaoImpl.getInstance().getPatientByName(NachnameTf.getText());
+        int i = 0;
+        for (PatientDto x : pl) {
+            dtm.insertRow(i++, new Object[]{x.getId(), x.getSurname(), x.getFirstname(), "", x.getPostalCode(), x.getCity(), x.getStreet()});
         }
     }//GEN-LAST:event_suchenButtonActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void resultTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultTMouseClicked
+//        try {
+            int row = resultT.getSelectedRow();
+            String temp = resultT.getModel().getValueAt(row, 0).toString();
+            this.setVisible(false);
+            this.dispose();
+            EpaView ew = new EpaView(PatientDaoImpl.getInstance().getPatientByID(temp));
+            ew.setVisible(true);
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        }
+    }//GEN-LAST:event_resultTMouseClicked
 
     /**
      * @param args the command line arguments
@@ -245,12 +264,12 @@ public class PatientSuchenView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Nachname;
+    private javax.swing.JTextField NachnameTf;
     private javax.swing.JLabel Vorname;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTable resultT;
     private javax.swing.JButton suchenButton;

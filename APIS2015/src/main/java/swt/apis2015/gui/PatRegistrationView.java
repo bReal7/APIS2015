@@ -14,7 +14,8 @@ import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
 import swt.apis2015.entities.Patient;
 import swt.apis2015.input.VkSimulator;
-import swt.apis2015.logic.PatientManagement;
+import swt.apis2015.logic.PatientDaoImpl;
+import swt2.apis2015.dto.PatientDto;
 
 /**
  *
@@ -272,28 +273,28 @@ public class PatRegistrationView extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            PatientManagement.getInstance().addPatient(initPat());
+            PatientDaoImpl.getInstance().addPatient(initPat());
             this.setVisible(false);
             this.dispose();
-            EpaView ew = new EpaView();
-            ew.setVisible(true);
+//            EpaView ew = new EpaView();
+//            ew.setVisible(true);
         } catch (java.text.ParseException ex) {
             Logger.getLogger(PatRegistrationView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private Patient initPat() throws java.text.ParseException {
-        Patient pat = new Patient();
+    private PatientDto initPat() throws java.text.ParseException {
+        PatientDto pat = new PatientDto();
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         pat.setBirthday(format.parse(geb.getText()));
         pat.setCity(ort.getText());
         pat.setCountry(land.getText());
-        pat.setFirstName(vname.getText());
+        pat.setFirstname(vname.getText());
         pat.setPatientOID(Integer.parseInt(oid.getText()));
         pat.setPostalCode(plz.getText());
         pat.setStreet(strasse.getText());
         pat.setSurname(nname.getText());
-        pat.setVersicherungsverhaeltnis(Integer.parseInt(vs.getText()));
+        pat.setInsuranceContract((vs.getText()));
         return pat;
     }
 

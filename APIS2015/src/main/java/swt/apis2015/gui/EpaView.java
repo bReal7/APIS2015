@@ -5,22 +5,28 @@
  */
 package swt.apis2015.gui;
 
-import swt.apis2015.entities.Verlauf;
-
-
-
+import swt2.apis2015.dto.PatientDto;
 
 /**
  *
  * @author B-Real
  */
 public class EpaView extends javax.swing.JFrame {
+    
+    private static PatientDto currentPat;
 
     /**
      * Creates new form Epa
      */
-    public EpaView() {
+    public EpaView(PatientDto pat) {
         initComponents();
+        this.currentPat = pat;
+        pId.setText(currentPat.getId());
+        nname.setText(currentPat.getSurname());
+        vname.setText(currentPat.getFirstname());
+        vs.setText(currentPat.getInsuranceContract().name());
+        oid.setText(String.valueOf(currentPat.getPatientOID()));
+        geb.setText(currentPat.getBirthday().toString());
     }
 
     /**
@@ -235,10 +241,10 @@ public class EpaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
-        this.dispose();
-        EpaView ew = new EpaView();
-        ew.setVisible(true);
+//        this.setVisible(false);
+//        this.dispose();
+//        EpaView ew = new EpaView();
+//        ew.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -283,7 +289,7 @@ public class EpaView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EpaView().setVisible(true);
+                new EpaView(currentPat).setVisible(true);
             }
         });
     }

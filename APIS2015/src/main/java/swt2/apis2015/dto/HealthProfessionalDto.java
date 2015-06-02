@@ -3,23 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swt.apis2015.entities;
+package swt2.apis2015.dto;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import swt.apis2015.entities.Person;
 import swt.apis2015.enums.HPRole;
+
 /**
  *
  * @author B-Real
  */
-@Entity
-public class HealthProfessional extends Person implements Serializable {
+public class HealthProfessionalDto extends Person {
 
     private static final long serialVersionUID = 1L;
     private double gehalt;
-    @Enumerated(EnumType.STRING)
     private HPRole role;
     private String password;
 
@@ -31,14 +27,6 @@ public class HealthProfessional extends Person implements Serializable {
         this.gehalt = gehalt;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public HPRole getRole() {
         return role;
     }
@@ -46,4 +34,13 @@ public class HealthProfessional extends Person implements Serializable {
     public void setRole(HPRole role) {
         this.role = role;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+        
 }

@@ -22,7 +22,7 @@ import swt.apis2015.entities.Patient;
 public class VkSimulator {
 
     private Patient loadedPat;
-    private static final String filePath = "C:\\APIS2015\\vkSim\\patSim.json";
+    private static final String filePath = "C:\\development\\vkSim\\patSim.json";
     private static VkSimulator instance = null;
 
     protected VkSimulator() {
@@ -49,7 +49,7 @@ public class VkSimulator {
         loadedPat.setCity((String) jsonObject.get("city"));
         loadedPat.setStreet((String) jsonObject.get("street"));
         loadedPat.setCountry((String) jsonObject.get("state"));
-        loadedPat.setVersicherungsverhaeltnis(Integer.parseInt((String) jsonObject.get("versichertenverhaeltnis")));
+        loadedPat.setVersicherungsverhaeltnis((String) jsonObject.get("versichertenverhaeltnis"));
         return loadedPat;
     }
 }

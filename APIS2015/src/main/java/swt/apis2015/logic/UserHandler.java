@@ -12,6 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import swt.apis2015.entities.HealthProfessional;
 import swt.apis2015.interfaces.UserHandlerI;
+import swt2.apis2015.dto.HealthProfessionalDto;
 
 /**
  *
@@ -20,6 +21,8 @@ import swt.apis2015.interfaces.UserHandlerI;
 public class UserHandler implements UserHandlerI {
 
     private static UserHandler instance = null;
+    
+    private HealthProfessional user = null;
 
     protected UserHandler() {
     }
@@ -31,7 +34,7 @@ public class UserHandler implements UserHandlerI {
         return instance;
     }
 
-    public HealthProfessional createHP(HealthProfessional hp) {
+    public HealthProfessionalDto createHpDto(HealthProfessionalDto hp) {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -52,7 +55,7 @@ public class UserHandler implements UserHandlerI {
         query.setParameter("password", password);
         List<HealthProfessional> result = query.list();
         if (result.size() == 1) {
-            UserSessionHandler.getInstance().setUser(result.get(0));
+            this.user = result.get(0);
             return true;
         } else {
             return false;
@@ -67,6 +70,16 @@ public class UserHandler implements UserHandlerI {
     @Override
     public boolean deleteHP() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HealthProfessional createHpDto(HealthProfessional hp) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HealthProfessional getLoggedUser() {
+        return user;
     }
 
 }

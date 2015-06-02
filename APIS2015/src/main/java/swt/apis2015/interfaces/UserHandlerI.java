@@ -12,9 +12,14 @@ import swt.apis2015.entities.HealthProfessional;
  * @author Administrator
  */
 public interface UserHandlerI {
-    
+
     public boolean login(String user, String password);
+
+    public HealthProfessional getLoggedUser();
+
     public void logout();
-    public HealthProfessional createHP(HealthProfessional hp);
+
+    public HealthProfessional createHpDto(HealthProfessional hp);
+
     public boolean deleteHP();
 }

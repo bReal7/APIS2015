@@ -5,8 +5,9 @@
  */
 package swt.apis2015.gui;
 
-import swt.apis2015.entities.HealthProfessional;
-import swt.apis2015.logic.UserHandler;
+import swt.apis2015.enums.HPRole;
+import swt.apis2015.logic.HealthProfessionalDaoLogic;
+import swt2.apis2015.dto.HealthProfessionalDto;
 
 /**
  *
@@ -35,7 +36,7 @@ public class SigningView extends javax.swing.JFrame {
         Stammdaten = new javax.swing.JPanel();
         Nachname = new javax.swing.JLabel();
         Vorname = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        weiterBtn = new javax.swing.JButton();
         OID = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         ortJL = new javax.swing.JLabel();
@@ -56,6 +57,8 @@ public class SigningView extends javax.swing.JFrame {
         wrongPasswortLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         gahaltTf = new javax.swing.JTextField();
+        roleComboBox = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,10 +68,10 @@ public class SigningView extends javax.swing.JFrame {
 
         Vorname.setText("Geburtstag:");
 
-        jButton2.setText("Weiter");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        weiterBtn.setText("Weiter");
+        weiterBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                weiterBtnActionPerformed(evt);
             }
         });
 
@@ -130,6 +133,15 @@ public class SigningView extends javax.swing.JFrame {
             }
         });
 
+        roleComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Doctor", "Nurse", " " }));
+        roleComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roleComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Rolle:");
+
         javax.swing.GroupLayout StammdatenLayout = new javax.swing.GroupLayout(Stammdaten);
         Stammdaten.setLayout(StammdatenLayout);
         StammdatenLayout.setHorizontalGroup(
@@ -165,29 +177,36 @@ public class SigningView extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(wrongPasswortLabel)
                             .addGap(174, 174, 174)
-                            .addComponent(jButton2)))
-                    .addGroup(StammdatenLayout.createSequentialGroup()
-                        .addGroup(StammdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, StammdatenLayout.createSequentialGroup()
-                                .addComponent(landJL)
-                                .addGap(18, 18, 18)
-                                .addComponent(landTF, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(gahaltTf))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, StammdatenLayout.createSequentialGroup()
-                                .addComponent(plzJL, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(plzTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(ortJL, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ortTF, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(strasseJL, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(strasseTF, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(weiterBtn))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, StammdatenLayout.createSequentialGroup()
+                            .addGroup(StammdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, StammdatenLayout.createSequentialGroup()
+                                    .addComponent(landJL)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(landTF, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(39, 39, 39)
+                                    .addComponent(jLabel1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(gahaltTf))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, StammdatenLayout.createSequentialGroup()
+                                    .addComponent(plzJL, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(plzTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(26, 26, 26)
+                                    .addComponent(ortJL, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ortTF, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(strasseJL, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(StammdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(StammdatenLayout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(strasseTF, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(StammdatenLayout.createSequentialGroup()
+                                    .addGap(58, 58, 58)
+                                    .addComponent(jLabel2)
+                                    .addGap(31, 31, 31)
+                                    .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(0, 41, Short.MAX_VALUE))
         );
         StammdatenLayout.setVerticalGroup(
@@ -216,7 +235,9 @@ public class SigningView extends javax.swing.JFrame {
                     .addComponent(landJL)
                     .addComponent(landTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(gahaltTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(gahaltTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(46, 46, 46)
                 .addGroup(StammdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwortJL)
@@ -225,12 +246,10 @@ public class SigningView extends javax.swing.JFrame {
                 .addGroup(StammdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(repeatPasswortJL)
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
+                    .addComponent(weiterBtn)
                     .addComponent(wrongPasswortLabel))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
-
-        jLabel1.getAccessibleContext().setAccessibleName("Gehalt:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -246,8 +265,8 @@ public class SigningView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private HealthProfessional initialHp() {
-        HealthProfessional hp = new HealthProfessional();
+    private HealthProfessionalDto initialHp() {
+        HealthProfessionalDto hp = new HealthProfessionalDto();
         hp.setSurname(nachnameTF.getText());
         hp.setFirstName(vornameTF.getText());
         hp.setBirthday(jXDatePicker1.getDate());
@@ -257,22 +276,28 @@ public class SigningView extends javax.swing.JFrame {
         hp.setCountry(landTF.getText());
         hp.setPassword(jPasswordField1.getText());
         hp.setGehalt(Integer.parseInt(gahaltTf.getText()));
+        if (roleComboBox.getSelectedItem() == "Doctor") {
+            hp.setRole(HPRole.DOCTOR);
+                    
+        } else {
+            hp.setRole(HPRole.NURSE);
+        }
         return hp;
     }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void weiterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weiterBtnActionPerformed
         if (jPasswordField1.getText().equals(jPasswordField2.getText())) {
-            UserHandler.getInstance().createHP(initialHp());
+            HealthProfessionalDaoLogic.getInstance().addHP(initialHp());
             this.setVisible(false);
             this.dispose();
-            EpaView ew = new EpaView();
-            ew.setVisible(true);
+//            EpaView ew = new EpaView();
+//            ew.setVisible(true);
         } else {
             wrongPasswortLabel.setVisible(true);
         }
 
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_weiterBtnActionPerformed
 
     private void nachnameTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nachnameTFActionPerformed
         // TODO add your handling code here:
@@ -293,6 +318,10 @@ public class SigningView extends javax.swing.JFrame {
     private void gahaltTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gahaltTfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_gahaltTfActionPerformed
+
+    private void roleComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_roleComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -336,8 +365,8 @@ public class SigningView extends javax.swing.JFrame {
     private javax.swing.JLabel Vorname;
     private javax.swing.JTextField gahaltTf;
     private swt.apis2015.entities.HealthProfessional healthProfessional1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
@@ -350,10 +379,12 @@ public class SigningView extends javax.swing.JFrame {
     private javax.swing.JLabel plzJL;
     private javax.swing.JTextField plzTF;
     private javax.swing.JLabel repeatPasswortJL;
+    private javax.swing.JComboBox roleComboBox;
     private javax.swing.JLabel strasseJL;
     private javax.swing.JTextField strasseTF;
     private javax.swing.JLabel title;
     private javax.swing.JTextField vornameTF;
+    private javax.swing.JButton weiterBtn;
     private javax.swing.JLabel wrongPasswortLabel;
     // End of variables declaration//GEN-END:variables
 }
