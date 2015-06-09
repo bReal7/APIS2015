@@ -12,15 +12,15 @@ import swt2.apis2015.dto.PatientDto;
  *
  * @author B-Real
  */
-public interface PatientDao {
+public interface WaitListHandlerI {
+    
+    public boolean waitListPatient(PatientDto pat);
 
-    public PatientDto getPatientByID(String id);
+    public List<PatientDto> getWaitList();
 
-    public List<PatientDto> getPatientByName(String name);
+    public PatientDto getCurrentPatient();
 
-    public void updatePatient();
-
-    public void deletePatient();
-
-    public void addPatient(PatientDto nPat);
+    public PatientDto setCurrentPatient();
+    
+    
 }

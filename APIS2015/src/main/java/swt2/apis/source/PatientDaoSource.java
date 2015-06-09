@@ -8,7 +8,6 @@ package swt2.apis.source;
 import apis2015.util.HibernateUtil;
 import java.util.LinkedList;
 import java.util.List;
-import javax.persistence.EntityManager;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import swt.apis2015.entities.Patient;
@@ -62,7 +61,7 @@ public class PatientDaoSource implements PatientDao {
             System.out.println(e.getMessage());
             System.out.println("asdkjandpgfkjnfgakjngajndfskjdsafkjnldfnfdskjn");
             session.getTransaction().rollback();
-        } 
+        }
         return null;
     }
 
@@ -100,15 +99,14 @@ public class PatientDaoSource implements PatientDao {
     }
 
     @Override
-    public void addPatient(PatientDto nPat
-    ) {
+    public void addPatient(PatientDto nPat) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         session.save(patDtoToEntity(nPat));
         session.getTransaction().commit();
     }
 
-    private Patient patDtoToEntity(PatientDto nPat) {
+    public Patient patDtoToEntity(PatientDto nPat) {
         Patient pat = new Patient();
         pat.setBirthday(nPat.getBirthday());
         pat.setCity(nPat.getCity());
@@ -121,7 +119,7 @@ public class PatientDaoSource implements PatientDao {
         return pat;
     }
 
-    private PatientDto entityToPatDto(Patient pat) {
+    public PatientDto entityToPatDto(Patient pat) {
         PatientDto patDto = new PatientDto();
         patDto.setId(pat.getId());
         patDto.setBirthday(pat.getBirthday());

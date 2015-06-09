@@ -47,7 +47,7 @@ public class StartView extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        patAnmeldenBtn.setText("Patient anmelden");
+        patAnmeldenBtn.setText("Warteliste");
         patAnmeldenBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 patAnmeldenBtnActionPerformed(evt);
@@ -134,10 +134,16 @@ public class StartView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void patAnmeldenBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patAnmeldenBtnActionPerformed
+//        this.setVisible(false);
+//        this.dispose();
+//        PatRegistrationView prv = new PatRegistrationView();
+//        prv.setVisible(true);
+        
         this.setVisible(false);
         this.dispose();
-        PatRegistrationView prv = new PatRegistrationView();
-        prv.setVisible(true);
+        WaitListView wlv = new WaitListView();
+        wlv.setVisible(true);
+                
     }//GEN-LAST:event_patAnmeldenBtnActionPerformed
 
     private void patSuchenBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patSuchenBtnActionPerformed

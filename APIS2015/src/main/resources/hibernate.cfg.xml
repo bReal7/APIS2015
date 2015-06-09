@@ -22,5 +22,6 @@
         <mapping class="swt.apis2015.entities.Patient"/>
         <mapping class="swt.apis2015.entities.Person"/>
         <mapping class="swt.apis2015.entities.Verlauf"/>
+        <mapping class="swt.apis2015.entities.Workflow"/>
     </session-factory>
 </hibernate-configuration>

@@ -8,7 +8,6 @@ package swt.apis2015.gui;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import swt.apis2015.logic.PatientDaoImpl;
 import swt2.apis2015.dto.PatientDto;

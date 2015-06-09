@@ -5,7 +5,6 @@
  */
 package swt.apis2015.gui;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,6 +14,7 @@ import org.json.simple.parser.ParseException;
 import swt.apis2015.entities.Patient;
 import swt.apis2015.input.VkSimulator;
 import swt.apis2015.logic.PatientDaoImpl;
+import swt.apis2015.logic.WaitListHandler;
 import swt2.apis2015.dto.PatientDto;
 
 /**
@@ -85,7 +85,7 @@ public class PatRegistrationView extends javax.swing.JFrame {
 
         VersichertenStatu.setText("Versicherungsstatus:");
 
-        jButton2.setText("Weiter");
+        jButton2.setText("Fertig");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -147,7 +147,7 @@ public class PatRegistrationView extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +158,7 @@ public class PatRegistrationView extends javax.swing.JFrame {
                                     .addComponent(geb))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                                 .addComponent(jButton2)
                                 .addGap(10, 10, 10))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -253,7 +253,7 @@ public class PatRegistrationView extends javax.swing.JFrame {
             Patient tmp = VkSimulator.getInstance().ladeKarte();
             oid.setText(String.valueOf(tmp.getPatientOID()));
             nname.setText(tmp.getSurname());
-            vname.setText(tmp.getFirstName());            
+            vname.setText(tmp.getFirstName());
             DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
             geb.setText(format.format(tmp.getBirthday()));
             vs.setText(String.valueOf(tmp.getVersicherungsverhaeltnis()));
@@ -273,10 +273,12 @@ public class PatRegistrationView extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            PatientDaoImpl.getInstance().addPatient(initPat());
+            PatientDto pat = initPat();
+            PatientDaoImpl.getInstance().addPatient(pat);
             this.setVisible(false);
             this.dispose();
-//            EpaView ew = new EpaView();
+            WaitListHandler.getInstance().waitListPatient(pat);
+//            EpaView ew = new EpaView(pat);
 //            ew.setVisible(true);
         } catch (java.text.ParseException ex) {
             Logger.getLogger(PatRegistrationView.class.getName()).log(Level.SEVERE, null, ex);

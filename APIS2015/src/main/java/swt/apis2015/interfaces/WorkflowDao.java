@@ -12,15 +12,8 @@ import swt2.apis2015.dto.PatientDto;
  *
  * @author B-Real
  */
-public interface PatientDao {
+public interface WorkflowDao {
 
-    public PatientDto getPatientByID(String id);
+    
 
-    public List<PatientDto> getPatientByName(String name);
-
-    public void updatePatient();
-
-    public void deletePatient();
-
-    public void addPatient(PatientDto nPat);
 }

@@ -18,7 +18,7 @@ public class PatientDaoImpl implements PatientDao {
 
     private static PatientDaoImpl instance = null;
 
-    protected PatientDaoImpl() {
+    private PatientDaoImpl() {
     }
 
     public static PatientDaoImpl getInstance() {
