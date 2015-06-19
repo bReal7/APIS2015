@@ -29,11 +29,12 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         dtm = (DefaultTableModel) resultT.getModel();
         wLh = WaitListHandler.getInstance();
         List<PatientDto> pl = wLh.getWaitList();
+        clearTable();
 
         if (pl.size() > 0) {
             int i = 0;
             for (PatientDto x : pl) {
-                dtm.insertRow(i++, new Object[]{x.getId(), x.getSurname(), x.getFirstname(), "", x.getPostalCode(), x.getCity(), x.getStreet()});
+                dtm.insertRow(i++, new Object[]{x.getSurname(), x.getFirstname(), "", x.getPostalCode(), x.getCity(), x.getStreet()});
             }
         }
         WaitListHandler.getInstance().addObserver(this);
@@ -53,42 +54,48 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         jScrollPane2 = new javax.swing.JScrollPane();
         resultT = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         resultT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nachname", "Vorname", "Geburtstag", "PLZ", "Ort", "Strasse"
+                "Nachname", "Vorname", "Geburtstag", "PLZ", "Ort", "Strasse"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        resultT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resultTMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(resultT);
@@ -100,6 +107,13 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
             }
         });
 
+        jButton2.setText("Nächster Patient");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -108,15 +122,19 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(85, 85, 85))
+                .addGap(29, 29, 29)
+                .addComponent(jButton2)
+                .addGap(136, 136, 136))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jButton1)
-                .addGap(0, 34, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -138,8 +156,18 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         prv.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        EpaView ew = new EpaView(wLh.next());
+        ew.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void resultTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultTMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resultTMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable resultT;
@@ -150,10 +178,20 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         System.out.println("askdnsdfklön");
         List<PatientDto> pl = wLh.getWaitList();
 
+        clearTable();
+
         if (pl.size() > 0) {
             int i = 0;
             for (PatientDto x : pl) {
-                dtm.insertRow(i++, new Object[]{x.getId(), x.getSurname(), x.getFirstname(), "", x.getPostalCode(), x.getCity(), x.getStreet()});
+                dtm.insertRow(i++, new Object[]{x.getSurname(), x.getFirstname(), "", x.getPostalCode(), x.getCity(), x.getStreet()});
+            }
+        }
+    }
+
+    private void clearTable() {
+        if (dtm.getRowCount() > 0) {
+            for (int i = dtm.getRowCount() - 1; i > -1; i--) {
+                dtm.removeRow(i);
             }
         }
     }

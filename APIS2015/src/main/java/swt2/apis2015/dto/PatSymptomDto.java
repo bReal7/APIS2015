@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swt.apis2015.entities;
+package swt2.apis2015.dto;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,17 +14,18 @@ import javax.persistence.Id;
  *
  * @author B-Real
  */
-@Entity
-public class Document implements Serializable {
+public class PatSymptomDto extends PatPhenomenDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private int documentId;
-    private String mimetype;
-    private String name;
-//    private List<PatPhenomen> patPhenomen;
+    private String intensity;
+    private String location;
+
+    public PatSymptomDto() {
+    }
 
     public Long getId() {
         return id;
@@ -36,40 +35,25 @@ public class Document implements Serializable {
         this.id = id;
     }
 
-    public int getDocumentId() {
-        return documentId;
+    public String getIntensity() {
+        return intensity;
     }
 
-    public void setDocumentId(int documentId) {
-        this.documentId = documentId;
+    public void setIntensity(String intensity) {
+        this.intensity = intensity;
     }
 
-    public String getMimetype() {
-        return mimetype;
+    public String getLocation() {
+        return location;
     }
 
-    public void setMimetype(String mimetype) {
-        this.mimetype = mimetype;
+    public void setLocation(String location) {
+        this.location = location;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-//    public List<PatPhenomen> getPatPhenomen() {
-//        return patPhenomen;
-//    }
-//
-//    public void setPatPhenomen(List<PatPhenomen> patPhenomen) {
-//        this.patPhenomen = patPhenomen;
-//    }
-
     
     
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -80,10 +64,10 @@ public class Document implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Person)) {
+        if (!(object instanceof PatSymptomDto)) {
             return false;
         }
-        Document other = (Document) object;
+        PatSymptomDto other = (PatSymptomDto) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

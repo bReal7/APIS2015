@@ -5,15 +5,19 @@
  */
 package swt.apis2015.interfaces;
 
-import java.util.List;
+import swt2.apis2015.dto.InstanceDto;
+import swt2.apis2015.dto.PatDiagnoseDto;
+import swt2.apis2015.dto.PatMassnahmeDto;
+import swt2.apis2015.dto.PatSymptomDto;
 import swt2.apis2015.dto.PatientDto;
 
 /**
  *
  * @author B-Real
  */
-public interface WorkflowDao {
-
+public interface InstanceDao {
     
-
+    public void createInstance(InstanceDto nIns);
+    public void updateInstance(); 
+    
 }

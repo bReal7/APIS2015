@@ -5,16 +5,14 @@
  */
 package swt.apis2015.interfaces;
 
+import java.util.Map;
+
 /**
  *
  * @author B-Real
  */
-public interface Subject {
-
-    public void registerObservers(Observer observer);
-
-    public void removeObservers(Observer observer);
-
-    public void notifyObserevers();
-
+public interface Icd10ConnectorI {
+    
+    public Map<String,String> findIcdByName(String name);
+    
 }

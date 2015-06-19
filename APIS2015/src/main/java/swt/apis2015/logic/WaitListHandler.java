@@ -8,8 +8,6 @@ package swt.apis2015.logic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
-import swt.apis2015.interfaces.Observer;
-import swt.apis2015.interfaces.Subject;
 import swt.apis2015.interfaces.WaitListHandlerI;
 import swt2.apis2015.dto.PatientDto;
 
@@ -35,31 +33,42 @@ public class WaitListHandler extends Observable implements WaitListHandlerI {
     public boolean waitListPatient(PatientDto pat) {
         System.out.println("####waitingListEntered");
         boolean result;
-            System.out.println("####Waitlist NOT NULL");
-            result = waitlist.add(pat);
-            System.out.println("pat added to waitlist " + result);
-            System.out.println(waitlist.get(0).getFirstname());
-            
-            
+        System.out.println("####Waitlist NOT NULL");
+        result = waitlist.add(pat);
+        System.out.println("pat added to waitlist " + result);
+        System.out.println(waitlist.get(0).getFirstname());
+
         setChanged();
         notifyObservers(pat);
         return result;
     }
 
-
-    
     @Override
     public List<PatientDto> getWaitList() {
-            return waitlist;
+        return waitlist;
     }
 
     @Override
     public PatientDto getCurrentPatient() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PatientDto result = waitlist.get(0);
+        waitlist.remove(0);
+        return result;
     }
 
     @Override
     public PatientDto setCurrentPatient() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public PatientDto next() {
+        PatientDto result = null;
+        if (waitlist.size() > 0) {
+            result = waitlist.get(0);
+            waitlist.remove(0);
+            setChanged();
+            notifyObservers(waitlist);
+        }
+        return result;
     }
 }

@@ -21,7 +21,7 @@ public class Verlauf implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    List<Falldaten> allHistory;
+    List<Instance> allHistory;
 
     public Long getId() {
         return id;

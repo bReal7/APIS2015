@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import swt.apis2015.entities.Patient;
+import swt.apis2015.enums.InsurenceContract;
 
 /**
  *
@@ -22,7 +23,7 @@ import swt.apis2015.entities.Patient;
 public class VkSimulator {
 
     private Patient loadedPat;
-    private static final String filePath = "C:\\development\\vkSim\\patSim.json";
+    private static final String filePath = "C:\\development\\vkSim\\patSim";
     private static VkSimulator instance = null;
 
     protected VkSimulator() {
@@ -38,7 +39,7 @@ public class VkSimulator {
 
     public Patient ladeKarte() throws FileNotFoundException, IOException, ParseException, java.text.ParseException {
         loadedPat = new Patient();
-        FileReader reader = new FileReader(filePath);
+        FileReader reader = new FileReader(filePath + (int)(Math.random()*10+1)+".json");
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
@@ -49,7 +50,7 @@ public class VkSimulator {
         loadedPat.setCity((String) jsonObject.get("city"));
         loadedPat.setStreet((String) jsonObject.get("street"));
         loadedPat.setCountry((String) jsonObject.get("state"));
-        loadedPat.setVersicherungsverhaeltnis((String) jsonObject.get("versichertenverhaeltnis"));
+        loadedPat.setInsuranceContract(InsurenceContract.AOK);
         return loadedPat;
     }
 }

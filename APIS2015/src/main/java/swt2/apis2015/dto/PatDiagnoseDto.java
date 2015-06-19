@@ -3,21 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swt.apis2015.entities;
-
-import java.io.Serializable;
-import javax.persistence.Entity;
+package swt2.apis2015.dto;
 
 /**
  *
  * @author B-Real
  */
-@Entity
-public class PatDiagnose extends PatPhenomen implements Serializable {
+public class PatDiagnoseDto extends PatPhenomenDto{
 
+    private Long id;
     private String since;
     private String icd_code;
     private String icd_Description;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getSince() {
         return since;
@@ -43,4 +48,6 @@ public class PatDiagnose extends PatPhenomen implements Serializable {
         this.icd_Description = icd_Description;
     }
 
+    
+    
 }

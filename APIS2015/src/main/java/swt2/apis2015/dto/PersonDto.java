@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public abstract class PersonDto implements Serializable{
 
-    private String id;
+    private long id;
     private String surname;
     private String firstname;
     private Date birthday;
@@ -23,11 +23,11 @@ public abstract class PersonDto implements Serializable{
     private String postalCode;
     private String country;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

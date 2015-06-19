@@ -22,5 +22,6 @@ public interface WaitListHandlerI {
 
     public PatientDto setCurrentPatient();
     
+    public PatientDto next();
     
 }

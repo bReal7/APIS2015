@@ -5,19 +5,23 @@
  */
 package swt2.apis2015.dto;
 
+import java.util.ArrayList;
+import java.util.List;
 import swt.apis2015.enums.InsurenceContract;
 
 /**
  *
  * @author B-Real
  */
-public class PatientDto extends PersonDto{
+public class PatientDto extends PersonDto {
+
     private int patientOID;
     private InsurenceContract insuranceContract;
-    
+    private List<InstanceDto> ehrEntry;
+
     public PatientDto() {
     }
-    
+
     public int getPatientOID() {
         return patientOID;
     }
@@ -30,11 +34,16 @@ public class PatientDto extends PersonDto{
         return insuranceContract;
     }
 
-    public void setInsuranceContract(String insuranceContract) {
-        if (insuranceContract == "AOK" )
-        this.insuranceContract = InsurenceContract.AOK;
-        else{
-            this.insuranceContract = InsurenceContract.Barmer;
-        }
-    }    
+    public void setInsuranceContract(InsurenceContract insuranceContract) {
+        this.insuranceContract = insuranceContract;
+    }
+
+    public List<InstanceDto> getEhrEntry() {
+        return ehrEntry;
+    }
+
+    public void setEhrEntry(List<InstanceDto> ehrEntry) {
+        this.ehrEntry = ehrEntry;
+    }
+
 }

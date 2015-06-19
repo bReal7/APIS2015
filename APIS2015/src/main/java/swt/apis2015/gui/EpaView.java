@@ -12,7 +12,7 @@ import swt2.apis2015.dto.PatientDto;
  * @author B-Real
  */
 public class EpaView extends javax.swing.JFrame {
-    
+
     private static PatientDto currentPat;
 
     /**
@@ -21,7 +21,7 @@ public class EpaView extends javax.swing.JFrame {
     public EpaView(PatientDto pat) {
         initComponents();
         this.currentPat = pat;
-        pId.setText(currentPat.getId());
+        pId.setText(currentPat.getId() + "");
         nname.setText(currentPat.getSurname());
         vname.setText(currentPat.getFirstname());
         vs.setText(currentPat.getInsuranceContract().name());
@@ -54,6 +54,7 @@ public class EpaView extends javax.swing.JFrame {
         geb = new javax.swing.JLabel();
         vs = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         Verlaufe = new javax.swing.JList();
         Falldaten = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -68,6 +69,7 @@ public class EpaView extends javax.swing.JFrame {
         Assessments = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Epa");
 
         Stammdaten.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -105,6 +107,13 @@ public class EpaView extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel2.setText("Patient");
 
+        jButton1.setText("Fall anlegen");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout StammdatenLayout = new javax.swing.GroupLayout(Stammdaten);
         Stammdaten.setLayout(StammdatenLayout);
         StammdatenLayout.setHorizontalGroup(
@@ -113,7 +122,8 @@ public class EpaView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(StammdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, StammdatenLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addGap(10, 10, 10))
                     .addGroup(StammdatenLayout.createSequentialGroup()
@@ -171,7 +181,9 @@ public class EpaView extends javax.swing.JFrame {
                     .addComponent(VersichertenStatu)
                     .addComponent(vs))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addGroup(StammdatenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -247,6 +259,10 @@ public class EpaView extends javax.swing.JFrame {
 //        ew.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    new NewInstanceView(currentPat).setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -256,13 +272,8 @@ public class EpaView extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        
-        
 
 //GENERIERTER FEHLER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        
-        
-        
 //        try Verlauf  for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 //                if ("Nimbus".equals(info.getName())) {
 //                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -278,11 +289,7 @@ public class EpaView extends javax.swing.JFrame {
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
 //            java.util.logging.Logger.getLogger(EpaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
-        
-        
-        
 //GENERIERTER FEHLER ENDE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        
         //</editor-fold>
         //</editor-fold>
 
@@ -311,6 +318,7 @@ public class EpaView extends javax.swing.JFrame {
     private javax.swing.JLabel VersichertenStatu;
     private javax.swing.JLabel Vorname;
     private javax.swing.JLabel geb;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;

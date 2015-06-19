@@ -3,24 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swt.apis2015.entities;
-
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+package swt2.apis2015.dto;
 
 /**
  *
  * @author B-Real
  */
-@Entity
-public class PatMassnahme extends PatPhenomen implements Serializable {
+public class PatMassnahmeDto extends PatPhenomenDto{
 
-    private static final long serialVersionUID = 1L;
-
+    private Long id;
     private String text;
+
+    public PatMassnahmeDto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getText() {
         return text;

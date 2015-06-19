@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
 import swt.apis2015.entities.Patient;
+import swt.apis2015.enums.InsurenceContract;
 import swt.apis2015.input.VkSimulator;
 import swt.apis2015.logic.PatientDaoImpl;
 import swt.apis2015.logic.WaitListHandler;
@@ -256,7 +257,7 @@ public class PatRegistrationView extends javax.swing.JFrame {
             vname.setText(tmp.getFirstName());
             DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
             geb.setText(format.format(tmp.getBirthday()));
-            vs.setText(String.valueOf(tmp.getVersicherungsverhaeltnis()));
+            vs.setText(String.valueOf(tmp.getInsuranceContract()));
             ort.setText(tmp.getCity());
             plz.setText(tmp.getPostalCode());
             strasse.setText(tmp.getStreet());
@@ -296,7 +297,7 @@ public class PatRegistrationView extends javax.swing.JFrame {
         pat.setPostalCode(plz.getText());
         pat.setStreet(strasse.getText());
         pat.setSurname(nname.getText());
-        pat.setInsuranceContract((vs.getText()));
+        pat.setInsuranceContract(InsurenceContract.AOK);
         return pat;
     }
 

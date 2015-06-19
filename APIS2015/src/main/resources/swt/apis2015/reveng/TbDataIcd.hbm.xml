@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16.06.2015 20:49:59 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="swt.apis2015.reveng.TbDataIcd" table="tb_data_icd" catalog="icd" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="col1" type="java.lang.Integer">
+            <column name="col1" />
+        </property>
+        <property name="col2" type="string">
+            <column name="col2" length="1" />
+        </property>
+        <property name="col3" type="string">
+            <column name="col3" length="1" />
+        </property>
+        <property name="col4" type="java.lang.Integer">
+            <column name="col4" />
+        </property>
+        <property name="col5" type="string">
+            <column name="col5" length="3" />
+        </property>
+        <property name="col6" type="string">
+            <column name="col6" length="6" />
+        </property>
+        <property name="col7" type="string">
+            <column name="col7" length="5" />
+        </property>
+        <property name="col8" type="string">
+            <column name="col8" length="4" />
+        </property>
+        <property name="col9" type="string">
+            <column name="col9" length="185" />
+        </property>
+        <property name="col10" type="string">
+            <column name="col10" length="5" />
+        </property>
+        <property name="col11" type="string">
+            <column name="col11" length="5" />
+        </property>
+        <property name="col12" type="string">
+            <column name="col12" length="5" />
+        </property>
+        <property name="col13" type="string">
+            <column name="col13" length="5" />
+        </property>
+        <property name="col14" type="string">
+            <column name="col14" length="5" />
+        </property>
+    </class>
+</hibernate-mapping>
