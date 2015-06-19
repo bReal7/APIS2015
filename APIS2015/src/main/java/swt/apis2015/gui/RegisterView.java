@@ -48,10 +48,10 @@ public class RegisterView extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setName("StartFrame"); // NOI18N
 
-        startPanel.setBackground(new java.awt.Color(255, 255, 255));
+        startPanel.setBackground(new java.awt.Color(102, 153, 255));
         startPanel.setName("startPanel"); // NOI18N
 
-        loginPanel.setBackground(new java.awt.Color(255, 255, 255));
+        loginPanel.setBackground(new java.awt.Color(102, 153, 255));
 
         jLabel2.setText("Username");
 
@@ -127,10 +127,9 @@ public class RegisterView extends javax.swing.JFrame {
                 .addComponent(jLabel1))
         );
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\development\\graphics\\doc.png")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

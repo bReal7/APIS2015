@@ -41,11 +41,12 @@ public class StartView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(102, 153, 255));
 
+        jLabel1.setBackground(new java.awt.Color(102, 102, 255));
         jLabel1.setText("Angemeldet als : ");
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
         patAnmeldenBtn.setText("Warteliste");
         patAnmeldenBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +93,7 @@ public class StartView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        nameL.setBackground(new java.awt.Color(102, 102, 255));
         nameL.setText("name");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

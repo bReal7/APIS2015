@@ -58,6 +58,10 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
+
+        jScrollPane2.setBackground(new java.awt.Color(102, 153, 255));
+
         resultT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -100,6 +104,7 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         });
         jScrollPane2.setViewportView(resultT);
 
+        jButton1.setBackground(new java.awt.Color(102, 102, 255));
         jButton1.setText("Patienten Aufehmen");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +112,7 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(102, 102, 255));
         jButton2.setText("Nächster Patient");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

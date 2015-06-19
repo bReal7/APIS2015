@@ -56,12 +56,6 @@ public class EpaView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         Verlaufe = new javax.swing.JList();
-        Symptome = new javax.swing.JTabbedPane();
-        Diagnose = new javax.swing.JTabbedPane();
-        Probleme = new javax.swing.JTabbedPane();
-        Labor = new javax.swing.JTabbedPane();
-        Medikation = new javax.swing.JTabbedPane();
-        Assessments = new javax.swing.JTabbedPane();
         Falldaten = new javax.swing.JPanel();
         jScrollPanelFaelle = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -71,10 +65,12 @@ public class EpaView extends javax.swing.JFrame {
         jList2 = new javax.swing.JList();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTable3 = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTable4 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Epa");
@@ -203,12 +199,10 @@ public class EpaView extends javax.swing.JFrame {
             public Object getElementAt(int i) { return strings[i]; }
         });
         jTabbedPane1.addTab("Verlauf", Verlaufe);
-        jTabbedPane1.addTab("Syptome", Symptome);
-        jTabbedPane1.addTab("Diagnosen", Diagnose);
-        jTabbedPane1.addTab("Probleme", Probleme);
-        jTabbedPane1.addTab("Labor", Labor);
-        jTabbedPane1.addTab("Medikation", Medikation);
-        jTabbedPane1.addTab("Assessments", Assessments);
+
+        Falldaten.setBackground(new java.awt.Color(102, 153, 255));
+
+        jScrollPanelFaelle.setBackground(new java.awt.Color(102, 153, 255));
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -217,7 +211,11 @@ public class EpaView extends javax.swing.JFrame {
         });
         jScrollPanelFaelle.setViewportView(jList1);
 
+        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
+
         jLabel1.setText("Maßnahmen:");
+
+        jScrollPane1.setBackground(new java.awt.Color(102, 153, 255));
 
         jList2.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -234,8 +232,8 @@ public class EpaView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(755, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,31 +245,17 @@ public class EpaView extends javax.swing.JFrame {
                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
+        jPanel4.setBackground(new java.awt.Color(102, 153, 255));
+
         jLabel4.setText("Symptome:");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Symptom", "Stärke"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        jPanel5.setBackground(new java.awt.Color(102, 153, 255));
 
         jLabel5.setText("Diagnosen:");
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        jScrollPane3.setBackground(new java.awt.Color(102, 153, 255));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -290,6 +274,7 @@ public class EpaView extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jScrollPane3.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -298,19 +283,43 @@ public class EpaView extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(jTable4, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(765, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTable4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addComponent(jLabel5)
+                .addContainerGap(91, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        jScrollPane2.setBackground(new java.awt.Color(102, 153, 255));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Symptom", "Stärke"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -318,21 +327,21 @@ public class EpaView extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(jTable3, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(775, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jTable3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -440,18 +449,12 @@ public class EpaView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane Assessments;
-    private javax.swing.JTabbedPane Diagnose;
     private javax.swing.JPanel Falldaten;
     private javax.swing.JLabel Geburtstag;
-    private javax.swing.JTabbedPane Labor;
-    private javax.swing.JTabbedPane Medikation;
     private javax.swing.JLabel Nachname;
     private javax.swing.JLabel OID;
     private javax.swing.JLabel PatId;
-    private javax.swing.JTabbedPane Probleme;
     private javax.swing.JPanel Stammdaten;
-    private javax.swing.JTabbedPane Symptome;
     private javax.swing.JList Verlaufe;
     private javax.swing.JLabel VersichertenStatu;
     private javax.swing.JLabel Vorname;
@@ -468,10 +471,12 @@ public class EpaView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPanelFaelle;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JLabel nname;
     private javax.swing.JLabel oid;
     private javax.swing.JLabel pId;

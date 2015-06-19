@@ -67,8 +67,9 @@ public class PatRegistrationView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
+        jButton1.setBackground(new java.awt.Color(102, 102, 255));
         jButton1.setText("Versichertendaten laden");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,6 +87,7 @@ public class PatRegistrationView extends javax.swing.JFrame {
 
         VersichertenStatu.setText("Versicherungsstatus:");
 
+        jButton2.setBackground(new java.awt.Color(102, 102, 255));
         jButton2.setText("Fertig");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

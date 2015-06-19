@@ -62,7 +62,7 @@ public class SigningView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Stammdaten.setBackground(new java.awt.Color(255, 255, 255));
+        Stammdaten.setBackground(new java.awt.Color(102, 153, 255));
 
         Nachname.setText("Vorname:");
 

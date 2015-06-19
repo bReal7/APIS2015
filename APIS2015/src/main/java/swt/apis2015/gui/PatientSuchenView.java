@@ -62,12 +62,13 @@ public class PatientSuchenView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
         Nachname.setText("Nachname:");
 
         Vorname.setText("Vorname:");
 
+        suchenButton.setBackground(new java.awt.Color(102, 102, 255));
         suchenButton.setText("Suchen");
         suchenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,9 +76,9 @@ public class PatientSuchenView extends javax.swing.JFrame {
             }
         });
 
-        NachnameTf.setText(" ");
+        NachnameTf.setBackground(new java.awt.Color(102, 153, 255));
 
-        jTextField2.setText("  ");
+        jTextField2.setBackground(new java.awt.Color(102, 153, 255));
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -219,7 +220,8 @@ public class PatientSuchenView extends javax.swing.JFrame {
             String temp = resultT.getModel().getValueAt(row, 0).toString();
             this.setVisible(false);
             this.dispose();
-            EpaView ew = new EpaView(PatientDaoImpl.getInstance().getPatientByID(temp));
+            PatientDto tempPat = PatientDaoImpl.getInstance().getPatientByID(temp);
+            EpaView ew = new EpaView(tempPat);
             ew.setVisible(true);
 //        } catch (Exception e) {
 //            JOptionPane.showMessageDialog(null, e);

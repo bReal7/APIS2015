@@ -109,6 +109,7 @@ public class PatientDaoSource implements PatientDao {
     public Patient patDtoToEntity(PatientDto nPat) {
         Patient pat = new Patient();
         pat.setEhrEntry(PatPhenomenDaoSource.getInstance().ehrEntryDtoToEntity(nPat.getEhrEntry()));
+        pat.setId(nPat.getId());
         pat.setBirthday(nPat.getBirthday());
         pat.setCity(nPat.getCity());
         pat.setCountry(nPat.getCountry());
