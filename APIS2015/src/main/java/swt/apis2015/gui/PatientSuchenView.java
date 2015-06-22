@@ -59,8 +59,12 @@ public class PatientSuchenView extends javax.swing.JFrame {
             .addGap(0, 197, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                onWindowClose(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
@@ -215,18 +219,18 @@ public class PatientSuchenView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void resultTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultTMouseClicked
-//        try {
-            int row = resultT.getSelectedRow();
-            String temp = resultT.getModel().getValueAt(row, 0).toString();
-            this.setVisible(false);
-            this.dispose();
-            PatientDto tempPat = PatientDaoImpl.getInstance().getPatientByID(temp);
-            EpaView ew = new EpaView(tempPat);
-            ew.setVisible(true);
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, e);
-//        }
+        int row = resultT.getSelectedRow();
+        String temp = resultT.getModel().getValueAt(row, 0).toString();
+        this.setVisible(false);
+        this.dispose();
+        EpaView ew = new EpaView(Long.parseLong(temp));
+        ew.setVisible(true);
     }//GEN-LAST:event_resultTMouseClicked
+
+    private void onWindowClose(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onWindowClose
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_onWindowClose
 
     /**
      * @param args the command line arguments

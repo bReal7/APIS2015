@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package swt.apis2015.entities;
 
 import java.io.Serializable;
@@ -11,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -25,6 +22,7 @@ public abstract class Person implements Serializable {
     private long id;
     private String surname;
     private String firstname;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date birthday;
     private String street;
     private String city;

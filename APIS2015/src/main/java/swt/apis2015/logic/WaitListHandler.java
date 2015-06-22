@@ -31,13 +31,8 @@ public class WaitListHandler extends Observable implements WaitListHandlerI {
 
     @Override
     public boolean waitListPatient(PatientDto pat) {
-        System.out.println("####waitingListEntered");
         boolean result;
-        System.out.println("####Waitlist NOT NULL");
         result = waitlist.add(pat);
-        System.out.println("pat added to waitlist " + result);
-        System.out.println(waitlist.get(0).getFirstname());
-
         setChanged();
         notifyObservers(pat);
         return result;

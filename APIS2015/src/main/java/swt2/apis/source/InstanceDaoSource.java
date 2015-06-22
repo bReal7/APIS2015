@@ -6,11 +6,17 @@
 package swt2.apis.source;
 
 import apis2015.util.HibernateUtil;
+import java.util.ArrayList;
 import org.hibernate.Session;
 import swt.apis2015.entities.Instance;
-import swt.apis2015.entities.Patient;
+import swt.apis2015.entities.PatDiagnose;
+import swt.apis2015.entities.PatMassnahme;
+import swt.apis2015.entities.PatSymptom;
 import swt.apis2015.interfaces.InstanceDao;
 import swt2.apis2015.dto.InstanceDto;
+import swt2.apis2015.dto.PatDiagnoseDto;
+import swt2.apis2015.dto.PatMassnahmeDto;
+import swt2.apis2015.dto.PatSymptomDto;
 
 /**
  *
@@ -49,15 +55,28 @@ public class InstanceDaoSource implements InstanceDao {
         Instance nIns = new Instance();
         nIns.setPat(PatientDaoSource.getInstance().getPatienById(patId));
         nIns.setDate(ins.getDate());
+        ArrayList<PatSymptom> rsSymptom = new ArrayList<>();
+        ArrayList<PatDiagnose> rsDiagnose = new ArrayList<>();
+        ArrayList<PatMassnahme> rsMassnahme = new ArrayList<>();
+
 //        nIns.setPat(PatientDaoSource.getInstance().patDtoToEntity(ins.getPat()));
         if (ins.getSym() != null) {
-            nIns.setSym(PatPhenomenDaoSource.getInstance().patSymDtoToEntity(ins.getSym(), patId));
+            for (PatSymptomDto x : ins.getSym()) {
+                rsSymptom.add(PatPhenomenDaoSource.getInstance().patSymDtoToEntity(x, patId));
+            }
+            nIns.setSym(rsSymptom);
         }
         if (ins.getDia() != null) {
-            nIns.setDia(PatPhenomenDaoSource.getInstance().patDiaDtoToEntity(ins.getDia(), patId));
+            for (PatDiagnoseDto x : ins.getDia()) {
+                rsDiagnose.add(PatPhenomenDaoSource.getInstance().patDiaDtoToEntity(x, patId));
+            }
+            nIns.setDia(rsDiagnose);
         }
         if (ins.getMas() != null) {
-            nIns.setMas(PatPhenomenDaoSource.getInstance().patMasDtoToEntity(ins.getMas(), patId));
+            for (PatMassnahmeDto x : ins.getMas()) {
+                rsMassnahme.add(PatPhenomenDaoSource.getInstance().patMasDtoToEntity(x, patId));
+            }
+            nIns.setMas(rsMassnahme);
         }
         return nIns;
     }

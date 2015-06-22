@@ -1,5 +1,4 @@
 package swt.apis2015.entities;
-// Generated 16.06.2015 20:43:58 by Hibernate Tools 4.3.1
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

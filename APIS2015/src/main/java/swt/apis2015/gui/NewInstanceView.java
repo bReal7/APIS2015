@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
-import swt.apis2015.entities.HealthProfessional;
 import swt.apis2015.logic.Icd10Connector;
 import swt.apis2015.logic.InstanceDaoImpl;
+import swt.apis2015.logic.PatientDaoImpl;
 import swt2.apis2015.dto.InstanceDto;
 import swt2.apis2015.dto.PatDiagnoseDto;
 import swt2.apis2015.dto.PatientDto;
@@ -21,16 +21,16 @@ import swt2.apis2015.dto.PatientDto;
  * @author B-Real
  */
 public class NewInstanceView extends javax.swing.JFrame {
-    
+
     DefaultTableModel dtm;
     PatientDto currentPat;
 
     /**
      * Creates new form NeuerFallJFrame
      */
-    public NewInstanceView(PatientDto currentPat) {
-        this.currentPat = currentPat;
+    public NewInstanceView(long id) {
         initComponents();
+        currentPat = PatientDaoImpl.getInstance().getPatientByID(id);
         dtm = (DefaultTableModel) icdResultT.getModel();
     }
 
@@ -63,7 +63,12 @@ public class NewInstanceView extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                onWindowClose(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -337,7 +342,7 @@ public class NewInstanceView extends javax.swing.JFrame {
 //        nIns.setDia(nDiagnose);
 //        InstanceDaoImpl.getInstance().createInstance(nIns);
 //        nIns.setMas();
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -353,7 +358,6 @@ public class NewInstanceView extends javax.swing.JFrame {
             nDiagnose.setComment("COMMENT");
             InstanceDto ins = new InstanceDto();
             ins.setDate(new Date());
-            ins.setDia(nDiagnose);
             ins.setPat(currentPat);
             if (currentPat.getEhrEntry() == null) {
                 currentPat.setEhrEntry(new ArrayList<InstanceDto>());
@@ -362,6 +366,11 @@ public class NewInstanceView extends javax.swing.JFrame {
             InstanceDaoImpl.getInstance().createInstance(ins);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void onWindowClose(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onWindowClose
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_onWindowClose
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

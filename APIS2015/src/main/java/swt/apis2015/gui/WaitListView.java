@@ -34,7 +34,7 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         if (pl.size() > 0) {
             int i = 0;
             for (PatientDto x : pl) {
-                dtm.insertRow(i++, new Object[]{x.getSurname(), x.getFirstname(), "", x.getPostalCode(), x.getCity(), x.getStreet()});
+                dtm.insertRow(i++, new Object[]{x.getSurname(), x.getFirstname(), x.getBirthday().toGMTString(), x.getPostalCode(), x.getCity(), x.getStreet()});
             }
         }
         WaitListHandler.getInstance().addObserver(this);
@@ -56,7 +56,12 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                onCloseHandler(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
@@ -163,13 +168,19 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        EpaView ew = new EpaView(wLh.next());
+        EpaView ew;
+        ew = new EpaView(wLh.next().getId());
         ew.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void resultTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultTMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_resultTMouseClicked
+
+    private void onCloseHandler(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onCloseHandler
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_onCloseHandler
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -189,7 +200,7 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         if (pl.size() > 0) {
             int i = 0;
             for (PatientDto x : pl) {
-                dtm.insertRow(i++, new Object[]{x.getSurname(), x.getFirstname(), "", x.getPostalCode(), x.getCity(), x.getStreet()});
+                dtm.insertRow(i++, new Object[]{x.getSurname(), x.getFirstname(), x.getBirthday().toGMTString(), x.getPostalCode(), x.getCity(), x.getStreet()});
             }
         }
     }
@@ -201,5 +212,4 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
             }
         }
     }
-
 }

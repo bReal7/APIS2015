@@ -13,13 +13,5 @@ import swt.apis2015.entities.HealthProfessional;
  */
 public interface UserHandlerI {
 
-    public boolean login(String user, String password);
-
-    public HealthProfessional getLoggedUser();
-
-    public void logout();
-
-    public HealthProfessional createHpDto(HealthProfessional hp);
-
-    public boolean deleteHP();
+    
 }

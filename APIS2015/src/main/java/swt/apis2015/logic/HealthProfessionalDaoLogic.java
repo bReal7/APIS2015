@@ -29,15 +29,6 @@ public class HealthProfessionalDaoLogic implements HealthProfessionalDao {
         return instance;
     }
 
-    public List<HealthProfessional> getAllHealthProfessionals() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<HealthProfessional> getHealthProfessionalByName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public void updateHP() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -51,6 +42,36 @@ public class HealthProfessionalDaoLogic implements HealthProfessionalDao {
     @Override
     public void addHP(HealthProfessionalDto hp) {
         HealthProfessionalDaoSource.getInstance().addHP(hp);
+    }
+
+    @Override
+    public boolean login(String user, String password) {
+        return HealthProfessionalDaoSource.getInstance().login(user, password);
+    }
+
+    @Override
+    public List<HealthProfessionalDto> getAllHealthProfessionals() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<HealthProfessionalDto> getHealthProfessionalByName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HealthProfessionalDto getLoggedUser() {
+        return HealthProfessionalDaoSource.getInstance().getLoggedUser();
+    }
+
+    @Override
+    public void logout() {
+        HealthProfessionalDaoSource.getInstance().logout();
+    }
+
+    @Override
+    public HealthProfessional createHpDto(HealthProfessional hp) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

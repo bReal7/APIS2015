@@ -8,6 +8,7 @@ package swt2.apis.source;
 import apis2015.util.HibernateUtil;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import swt.apis2015.entities.Patient;
@@ -22,6 +23,8 @@ public class PatientDaoSource implements PatientDao {
 
     private static PatientDaoSource instance = null;
 
+    private static final Logger LOGGER = Logger.getLogger(PatientDaoSource.class.getName());
+
     private PatientDaoSource() {
     }
 
@@ -32,19 +35,8 @@ public class PatientDaoSource implements PatientDao {
         return instance;
     }
 
-//    @Override
-//    public List<PatientDto> getAllPatients() {
-//        List<PatientDto> result = new LinkedList<PatientDto>();
-//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//        session.beginTransaction();
-//        Query query = session.createQuery("FROM Patient");
-//        for (Patient x : (List<Patient>) query.list()) {
-//            result.add(entityToPatDto(x));
-//        }
-//        return result;
-//    }
     @Override
-    public PatientDto getPatientByID(String id) {
+    public PatientDto getPatientByID(long id) {
         System.out.println(id);
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
@@ -55,10 +47,13 @@ public class PatientDaoSource implements PatientDao {
             if (query.list().size() == 1) {
                 PatientDto result = entityToPatDto((Patient) query.list().get(0));
                 System.out.println(query.list().size());
+                session.getTransaction().commit();
+                LOGGER.info("Logger Name: " + LOGGER.getName() + "getPatientById(" + id + ") = " + result.getFirstname() + " " + result.getSurname());
                 return result;
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            LOGGER.warning("Logger Name: " + LOGGER.getName() + " getPatientByID(" + id + ") failed");
             System.out.println("asdkjandpgfkjnfgakjngajndfskjdsafkjnldfnfdskjn");
             session.getTransaction().rollback();
         }
@@ -79,9 +74,10 @@ public class PatientDaoSource implements PatientDao {
                 result.add(entityToPatDto(x));
             }
             session.getTransaction().commit();
+            LOGGER.info("Logger Name: " + LOGGER.getName() + "getPatientByName(" + name + ") size = " + result.size());
+
         } catch (Exception e) {
-            System.out.println("FAILED");
-            System.out.println(e.getMessage());
+            LOGGER.warning("Logger Name: " + LOGGER.getName() + "getPatientByName(" + name + ") failed: " + e.getMessage());
             session.getTransaction().rollback();
         } finally {
             return result;
@@ -101,15 +97,24 @@ public class PatientDaoSource implements PatientDao {
     @Override
     public void addPatient(PatientDto nPat) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        session.save(patDtoToEntity(nPat));
-        session.getTransaction().commit();
+        try {
+            session.beginTransaction();
+            session.save(patDtoToNewEntity(nPat));
+            session.getTransaction().commit();
+            LOGGER.info("Logger Name: " + LOGGER.getName() + "addPatient comitted");
+
+        } catch (Exception e) {
+            LOGGER.warning("Logger Name: " + LOGGER.getName() + "add patient failed: " + e.getMessage());
+            session.getTransaction().rollback();
+        }
     }
 
-    public Patient patDtoToEntity(PatientDto nPat) {
+    /*
+     Wenn ein Patient zum ersten mal angelegt wird muss die darf die Id nicht überschrieben werden,
+     denn im Konstruktor wird die Id automatisch erzeugt
+     */ public Patient patDtoToNewEntity(PatientDto nPat) {
         Patient pat = new Patient();
         pat.setEhrEntry(PatPhenomenDaoSource.getInstance().ehrEntryDtoToEntity(nPat.getEhrEntry()));
-        pat.setId(nPat.getId());
         pat.setBirthday(nPat.getBirthday());
         pat.setCity(nPat.getCity());
         pat.setCountry(nPat.getCountry());
@@ -118,6 +123,16 @@ public class PatientDaoSource implements PatientDao {
         pat.setPostalCode(nPat.getPostalCode());
         pat.setStreet(nPat.getStreet());
         pat.setSurname(nPat.getSurname());
+        pat.setPatientOID(nPat.getPatientOID());
+        return pat;
+    } /*
+     Hier muss die id gesetzt werden
+     */
+
+
+    public Patient patDtoToEntity(PatientDto nPat) {
+        Patient pat = patDtoToNewEntity(nPat);
+        pat.setId(nPat.getId());
         return pat;
     }
 
@@ -133,6 +148,7 @@ public class PatientDaoSource implements PatientDao {
         patDto.setPostalCode(pat.getPostalCode());
         patDto.setStreet(pat.getStreet());
         patDto.setSurname(pat.getSurname());
+        patDto.setPatientOID(pat.getPatientOID());
         return patDto;
     }
 
@@ -142,15 +158,48 @@ public class PatientDaoSource implements PatientDao {
             session.getTransaction().begin();
             Query query = session.createQuery("FROM Patient p WHERE p.id = :id");
             query.setParameter("id", id);
-            if (query.list().size() == 1) {
+            if (query.list().size() > 0) {
                 Patient result = (Patient) query.list().get(0);
+                session.getTransaction().commit();
+                LOGGER.info("Logger Name: " + LOGGER.getName() + "getPatientById(" + id + ") = " + result.getFirstName() + " " + result.getSurname());
                 return result;
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("asdkjandpgfkjnfgakjngajndfskjdsafkjnldfnfdskjn");
+            LOGGER.warning("Logger Name: " + LOGGER.getName() + "getPatientById(" + id + ") " + e.getMessage());
             session.getTransaction().rollback();
         }
         return null;
+    }
+
+    @Override
+    public PatientDto findPatientByOid(int oid) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.getTransaction().begin();
+            Query query = session.createQuery("FROM Patient p WHERE p.patientOID = :oid");
+            query.setParameter("oid", oid);
+            if (query.list().size() > 0) {
+                PatientDto result = entityToPatDto((Patient) query.list().get(0));
+                session.getTransaction().commit();
+                LOGGER.info("Logger Name: " + LOGGER.getName() + "findPatientByOid(" + oid + ") = " + result.getFirstname() + " " + result.getSurname());
+                return result;
+            }
+        } catch (Exception e) {
+            LOGGER.warning("Logger Name: " + LOGGER.getName() + " findPatientByOID(" + oid + ") failed");
+            System.out.println(e.getMessage());
+            session.getTransaction().rollback();
+        }
+        session.getTransaction().commit();
+        LOGGER.warning("Logger Name: " + LOGGER.getName() + " findPatientByOID(" + oid + ") = NULL");
+        return null;
+    }
+
+    @Override
+    public boolean isAlreadyRegistered(int oid) {
+        if (findPatientByOid(oid) == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

@@ -10,11 +10,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import swt.apis2015.entities.Patient;
 import swt.apis2015.enums.InsurenceContract;
+import swt2.apis2015.dto.PatientDto;
 
 /**
  *
@@ -22,9 +23,10 @@ import swt.apis2015.enums.InsurenceContract;
  */
 public class VkSimulator {
 
-    private Patient loadedPat;
+    private PatientDto loadedPat;
     private static final String filePath = "C:\\development\\vkSim\\patSim";
     private static VkSimulator instance = null;
+    private static final Logger LOGGER = Logger.getLogger(VkSimulator.class.getName());
 
     protected VkSimulator() {
         // Exists only to defeat instantiation.
@@ -37,20 +39,23 @@ public class VkSimulator {
         return instance;
     }
 
-    public Patient ladeKarte() throws FileNotFoundException, IOException, ParseException, java.text.ParseException {
-        loadedPat = new Patient();
-        FileReader reader = new FileReader(filePath + (int)(Math.random()*10+1)+".json");
+    public PatientDto ladeKarte() throws FileNotFoundException, IOException, ParseException, java.text.ParseException {
+        LOGGER.info("start ladeKarte "+LOGGER.getName());
+        loadedPat = new PatientDto();
+        FileReader reader = new FileReader(filePath + (int) (Math.random() * 10 + 1) + ".json");
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         loadedPat.setBirthday(format.parse((String) jsonObject.get("gebDatum")));
+        loadedPat.setPatientOID(Integer.parseInt((String) jsonObject.get("oid")));
         loadedPat.setSurname((String) jsonObject.get("name"));
-        loadedPat.setFirstName((String) jsonObject.get("vorname"));
+        loadedPat.setFirstname((String) jsonObject.get("vorname"));
         loadedPat.setPostalCode((String) jsonObject.get("postalCode"));
         loadedPat.setCity((String) jsonObject.get("city"));
         loadedPat.setStreet((String) jsonObject.get("street"));
         loadedPat.setCountry((String) jsonObject.get("state"));
         loadedPat.setInsuranceContract(InsurenceContract.AOK);
+        LOGGER.info(LOGGER.getName() + " loaded Patient OID:" + loadedPat.getPatientOID()+ " Name: " + loadedPat.getFirstname() + " " + loadedPat.getSurname());
         return loadedPat;
     }
 }

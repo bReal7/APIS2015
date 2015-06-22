@@ -29,7 +29,7 @@ public class PatientDaoImpl implements PatientDao {
     }
 
     @Override
-    public PatientDto getPatientByID(String id) {
+    public PatientDto getPatientByID(long id) {
         return PatientDaoSource.getInstance().getPatientByID(id);
     }
 
@@ -51,5 +51,15 @@ public class PatientDaoImpl implements PatientDao {
     @Override
     public void addPatient(PatientDto nPat) {
         PatientDaoSource.getInstance().addPatient(nPat);
+    }
+
+    @Override
+    public PatientDto findPatientByOid(int oid) {
+        return PatientDaoSource.getInstance().findPatientByOid(oid);
+    }
+
+    @Override
+    public boolean isAlreadyRegistered(int oid) {
+        return PatientDaoSource.getInstance().isAlreadyRegistered(oid);
     }
 }

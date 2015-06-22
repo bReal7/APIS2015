@@ -11,8 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
-import swt.apis2015.entities.Patient;
-import swt.apis2015.enums.InsurenceContract;
 import swt.apis2015.input.VkSimulator;
 import swt.apis2015.logic.PatientDaoImpl;
 import swt.apis2015.logic.WaitListHandler;
@@ -24,11 +22,14 @@ import swt2.apis2015.dto.PatientDto;
  */
 public class PatRegistrationView extends javax.swing.JFrame {
 
+    private PatientDto tmp;
+
     /**
      * Creates new form PatRegistration
      */
     public PatRegistrationView() {
         initComponents();
+
     }
 
     /**
@@ -65,7 +66,12 @@ public class PatRegistrationView extends javax.swing.JFrame {
         strasse = new javax.swing.JLabel();
         land = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                onCloseHandler(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
@@ -253,10 +259,10 @@ public class PatRegistrationView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            Patient tmp = VkSimulator.getInstance().ladeKarte();
+            tmp = VkSimulator.getInstance().ladeKarte();
             oid.setText(String.valueOf(tmp.getPatientOID()));
             nname.setText(tmp.getSurname());
-            vname.setText(tmp.getFirstName());
+            vname.setText(tmp.getFirstname());
             DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
             geb.setText(format.format(tmp.getBirthday()));
             vs.setText(String.valueOf(tmp.getInsuranceContract()));
@@ -275,34 +281,34 @@ public class PatRegistrationView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            PatientDto pat = initPat();
-            PatientDaoImpl.getInstance().addPatient(pat);
-            this.setVisible(false);
-            this.dispose();
-            WaitListHandler.getInstance().waitListPatient(pat);
-//            EpaView ew = new EpaView(pat);
-//            ew.setVisible(true);
-        } catch (java.text.ParseException ex) {
-            Logger.getLogger(PatRegistrationView.class.getName()).log(Level.SEVERE, null, ex);
+        
+        if (!PatientDaoImpl.getInstance().isAlreadyRegistered(tmp.getPatientOID())) {
+            PatientDaoImpl.getInstance().addPatient(tmp);
         }
+        this.setVisible(false);
+        this.dispose();
+        WaitListHandler.getInstance().waitListPatient(PatientDaoImpl.getInstance().findPatientByOid(tmp.getPatientOID()));
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private PatientDto initPat() throws java.text.ParseException {
-        PatientDto pat = new PatientDto();
-        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        pat.setBirthday(format.parse(geb.getText()));
-        pat.setCity(ort.getText());
-        pat.setCountry(land.getText());
-        pat.setFirstname(vname.getText());
-        pat.setPatientOID(Integer.parseInt(oid.getText()));
-        pat.setPostalCode(plz.getText());
-        pat.setStreet(strasse.getText());
-        pat.setSurname(nname.getText());
-        pat.setInsuranceContract(InsurenceContract.AOK);
-        return pat;
-    }
+    private void onCloseHandler(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onCloseHandler
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_onCloseHandler
 
+//    private PatientDto initPat() throws java.text.ParseException {
+//        PatientDto pat = new PatientDto();
+//        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+//        pat.setBirthday(format.parse(geb.getText()));
+//        pat.setCity(ort.getText());
+//        pat.setCountry(land.getText());
+//        pat.setFirstname(vname.getText());
+//        pat.setPatientOID(Integer.parseInt(oid.getText()));
+//        pat.setPostalCode(plz.getText());
+//        pat.setStreet(strasse.getText());
+//        pat.setSurname(nname.getText());
+//        pat.setInsuranceContract(InsurenceContract.AOK);
+//        return pat;
+//    }
     /**
      * @param args the command line arguments
      */

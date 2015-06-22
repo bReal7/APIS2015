@@ -6,6 +6,7 @@
 package swt2.apis2015.dto;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -16,9 +17,9 @@ public class InstanceDto {
     private Long id;
     private Date date;
     private PatientDto pat;
-    private PatSymptomDto sym;
-    private PatDiagnoseDto dia;
-    private PatMassnahmeDto mas;
+    private List <PatSymptomDto> sym;
+    private List <PatDiagnoseDto> dia;
+    private List <PatMassnahmeDto> mas;
 
     public InstanceDto() {
     }
@@ -47,27 +48,28 @@ public class InstanceDto {
         this.pat = pat;
     }
 
-    public PatSymptomDto getSym() {
+    public List<PatSymptomDto> getSym() {
         return sym;
     }
 
-    public void setSym(PatSymptomDto sym) {
+    public void setSym(List<PatSymptomDto> sym) {
         this.sym = sym;
     }
 
-    public PatDiagnoseDto getDia() {
+    public List<PatDiagnoseDto> getDia() {
         return dia;
     }
 
-    public void setDia(PatDiagnoseDto dia) {
+    public void setDia(List<PatDiagnoseDto> dia) {
         this.dia = dia;
     }
 
-    public PatMassnahmeDto getMas() {
+    public List<PatMassnahmeDto> getMas() {
         return mas;
     }
 
-    public void setMas(PatMassnahmeDto mas) {
+    public void setMas(List<PatMassnahmeDto> mas) {
         this.mas = mas;
     }
+
 }

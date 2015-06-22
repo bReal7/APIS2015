@@ -14,13 +14,22 @@ import swt2.apis2015.dto.HealthProfessionalDto;
  * @author B-Real
  */
 public interface HealthProfessionalDao {
-    public List<HealthProfessional> getAllHealthProfessionals();
+    public List<HealthProfessionalDto> getAllHealthProfessionals();
 
-    public List<HealthProfessional> getHealthProfessionalByName();
+    public List<HealthProfessionalDto> getHealthProfessionalByName();
 
     public void updateHP();
 
     public void deleteHP();
 
     public void addHP(HealthProfessionalDto hp);
+    
+    public boolean login(String user, String password);
+
+    public HealthProfessionalDto getLoggedUser();
+
+    public void logout();
+
+    public HealthProfessional createHpDto(HealthProfessional hp);
+    
 }

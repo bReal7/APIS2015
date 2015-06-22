@@ -14,13 +14,17 @@ import swt2.apis2015.dto.PatientDto;
  */
 public interface PatientDao {
 
-    public PatientDto getPatientByID(String id);
+    public PatientDto getPatientByID(long id);
 
     public List<PatientDto> getPatientByName(String name);
+    
+    public PatientDto findPatientByOid(int oid);
     
     public void updatePatient();
 
     public void deletePatient();
 
     public void addPatient(PatientDto nPat);
+    
+    public boolean isAlreadyRegistered(int oid);
 }

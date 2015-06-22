@@ -1,17 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package swt.apis2015.entities;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,12 +28,12 @@ public class Instance implements Serializable {
     private Date date;
     @OneToOne(cascade = CascadeType.ALL)
     private Patient pat;
-    @OneToOne(cascade = CascadeType.ALL)
-    private PatSymptom sym;
-    @OneToOne(cascade = CascadeType.ALL)
-    private PatDiagnose dia;
-    @OneToOne(cascade = CascadeType.ALL)
-    private PatMassnahme mas;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<PatSymptom> sym;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<PatDiagnose> dia;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<PatMassnahme> mas;
 
     public Instance() {
     }
@@ -65,29 +62,28 @@ public class Instance implements Serializable {
         this.pat = pat;
     }
 
-    public PatSymptom getSym() {
-        return sym;
-    }
 
-    public void setSym(PatSymptom sym) {
+    public void setSym(List<PatSymptom> sym) {
         this.sym = sym;
     }
 
-    public PatDiagnose getDia() {
+    public List<PatDiagnose> getDia() {
         return dia;
     }
 
-    public void setDia(PatDiagnose dia) {
+    public void setDia(List<PatDiagnose> dia) {
         this.dia = dia;
     }
 
-    public PatMassnahme getMas() {
+    public List<PatMassnahme> getMas() {
         return mas;
     }
 
-    public void setMas(PatMassnahme mas) {
+    public void setMas(List<PatMassnahme> mas) {
         this.mas = mas;
     }
+
+
 
     @Override
     public int hashCode() {
