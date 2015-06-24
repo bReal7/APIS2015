@@ -85,8 +85,13 @@ public class PatientDaoSource implements PatientDao {
     }
 
     @Override
-    public void updatePatient() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updatePatient(PatientDto pat) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.merge(patDtoToEntity(pat));
+        session.flush();
+        session.getTransaction().commit();
+          LOGGER.info("Logger Name: " + LOGGER.getName() + "updated: " + pat.getSurname());
     }
 
     @Override

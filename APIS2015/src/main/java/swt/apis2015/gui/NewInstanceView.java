@@ -7,13 +7,17 @@ package swt.apis2015.gui;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import swt.apis2015.logic.Icd10Connector;
 import swt.apis2015.logic.InstanceDaoImpl;
 import swt.apis2015.logic.PatientDaoImpl;
 import swt2.apis2015.dto.InstanceDto;
 import swt2.apis2015.dto.PatDiagnoseDto;
+import swt2.apis2015.dto.PatMassnahmeDto;
+import swt2.apis2015.dto.PatSymptomDto;
 import swt2.apis2015.dto.PatientDto;
 
 /**
@@ -22,8 +26,13 @@ import swt2.apis2015.dto.PatientDto;
  */
 public class NewInstanceView extends javax.swing.JFrame {
 
+    private static final Logger LOGGER = Logger.getLogger(NewInstanceView.class.getName());
+
     DefaultTableModel dtm;
     PatientDto currentPat;
+    List<PatSymptomDto> patSym;
+    List<PatDiagnoseDto> patDia;
+    List<PatMassnahmeDto> patMas;
 
     /**
      * Creates new form NeuerFallJFrame
@@ -31,7 +40,13 @@ public class NewInstanceView extends javax.swing.JFrame {
     public NewInstanceView(long id) {
         initComponents();
         currentPat = PatientDaoImpl.getInstance().getPatientByID(id);
+        LOGGER.info("Logger Name: " + LOGGER.getName() + " Neue instanz für Patien: id=" + currentPat.getId());
         dtm = (DefaultTableModel) icdResultT.getModel();
+        patSym = new ArrayList<PatSymptomDto>();
+        patDia = new ArrayList<PatDiagnoseDto>();
+        patMas = new ArrayList<PatMassnahmeDto>();
+        additionsDiagnosesJLabel.setVisible(false);
+        additionSymptomeJLabel.setVisible(false);
     }
 
     /**
@@ -43,10 +58,9 @@ public class NewInstanceView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        diagnosesJl = new javax.swing.JPanel();
+        addDiagnoseButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        icdResultT = new javax.swing.JTable();
         jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jTfSince = new javax.swing.JTextField();
@@ -55,13 +69,18 @@ public class NewInstanceView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        lokationjTF = new javax.swing.JTextField();
+        intensityjTF = new javax.swing.JTextField();
+        addSymptomsButton = new javax.swing.JButton();
+        additionSymptomeJLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        massnameJtF = new javax.swing.JTextField();
+        okButton = new javax.swing.JButton();
+        additionsDiagnosesJLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        icdResultT = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -70,16 +89,143 @@ public class NewInstanceView extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        diagnosesJl.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton2.setText("Diagnose hinzufügen");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        addDiagnoseButton.setText("Diagnose hinzufügen");
+        addDiagnoseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                addDiagnoseButtonActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Seit:");
+
+        jButton1.setText(" ICD 10 Code suchen");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTfSince.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTfSinceActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Diagnose");
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Symptome");
+
+        jLabel4.setText("Lokation:");
+
+        jLabel5.setText("Intesität:");
+
+        addSymptomsButton.setText("Zusätzliche Symptome");
+        addSymptomsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addSymptomsButtonActionPerformed(evt);
+            }
+        });
+
+        additionSymptomeJLabel.setText("+Symptome");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4))
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lokationjTF, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(intensityjTF, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(154, 154, 154)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(additionSymptomeJLabel)
+                            .addComponent(addSymptomsButton))))
+                .addContainerGap(112, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lokationjTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addSymptomsButton))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(intensityjTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(additionSymptomeJLabel)
+                .addContainerGap())
+        );
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Maßnahmen");
+
+        jLabel7.setText("Text:");
+
+        okButton.setText("OK");
+        okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(massnameJtF, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                        .addComponent(okButton)
+                        .addGap(101, 101, 101))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(massnameJtF, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(okButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
+        additionsDiagnosesJLabel.setText("+Diagnosen");
 
         icdResultT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -138,183 +284,157 @@ public class NewInstanceView extends javax.swing.JFrame {
                 "ICD10", "Beschreibung"
             }
         ));
+        jScrollPane1.setViewportView(icdResultT);
 
-        jButton1.setText(" ICD 10 Code suchen");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jTfSince.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTfSinceActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Diagnose");
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Symptome");
-
-        jLabel4.setText("Lokation:");
-
-        jLabel5.setText("Intesität:");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addGap(52, 52, 52)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(417, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Maßnahmen");
-
-        jLabel7.setText("Text:");
-
-        jButton3.setText("OK");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3))
-                    .addComponent(jLabel6))
-                .addContainerGap(219, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addContainerGap(889, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField2)
-                        .addGap(46, 46, 46)
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(icdResultT, javax.swing.GroupLayout.PREFERRED_SIZE, 778, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout diagnosesJlLayout = new javax.swing.GroupLayout(diagnosesJl);
+        diagnosesJl.setLayout(diagnosesJlLayout);
+        diagnosesJlLayout.setHorizontalGroup(
+            diagnosesJlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(diagnosesJlLayout.createSequentialGroup()
+                .addGroup(diagnosesJlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(diagnosesJlLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(diagnosesJlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(diagnosesJlLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTfSince, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(diagnosesJlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTfSince, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(diagnosesJlLayout.createSequentialGroup()
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton1))
+                                    .addGroup(diagnosesJlLayout.createSequentialGroup()
+                                        .addComponent(addDiagnoseButton)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(additionsDiagnosesJLabel))))))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel1))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(diagnosesJlLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 933, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        diagnosesJlLayout.setVerticalGroup(
+            diagnosesJlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(diagnosesJlLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(diagnosesJlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTfSince, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(diagnosesJlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(icdResultT, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addGroup(diagnosesJlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addDiagnoseButton)
+                    .addComponent(additionsDiagnosesJLabel))
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(diagnosesJl, javax.swing.GroupLayout.PREFERRED_SIZE, 992, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(diagnosesJl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private PatSymptomDto initSymptom() {
+        PatSymptomDto nSymptom = new PatSymptomDto();
+        nSymptom.setDate(new Date());
+        nSymptom.setIntensity(intensityjTF.getText());
+        nSymptom.setLocation(lokationjTF.getText());
+        nSymptom.setComment("");
+        nSymptom.setPatient(currentPat);
+        nSymptom.setWrittenBy("qwe");
+        LOGGER.info("Logger Name: " + LOGGER.getName() + " symptom erfasst");
+        return nSymptom;
+    }
+
+    private PatDiagnoseDto initDiagnose() {
+        PatDiagnoseDto nDiagnose = new PatDiagnoseDto();
+        nDiagnose.setDate(new Date());
+        nDiagnose.setPatient(currentPat);
+        nDiagnose.setIcd_code(dtm.getValueAt(icdResultT.getSelectedRow(), 0) + "");
+        nDiagnose.setIcd_Description(dtm.getValueAt(icdResultT.getSelectedRow(), 1) + "");
+        nDiagnose.setSince(jTfSince.getText());
+        nDiagnose.setWrittenBy("qwe");
+        nDiagnose.setComment("COMMENT");
+        LOGGER.info("Logger Name: " + LOGGER.getName() + " diagnose erfasst");
+        return nDiagnose;
+    }
+
+    private PatMassnahmeDto initMasnahme() {
+        PatMassnahmeDto nMassnahme = new PatMassnahmeDto();
+        nMassnahme.setComment("");
+        nMassnahme.setDate(new Date());
+        nMassnahme.setPatient(currentPat);
+        nMassnahme.setText(massnameJtF.getText());
+        LOGGER.info("Logger Name: " + LOGGER.getName() + " Massnahme erfasst");
+        return nMassnahme;
+    }
+
+
+    private void onWindowClose(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onWindowClose
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_onWindowClose
+
+    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        if (icdResultT.getSelectedRow() == -1) {
+        } else {
+            InstanceDto ins = new InstanceDto();
+            ins.setDate(new Date());
+            ins.setPat(currentPat);
+
+            PatSymptomDto sym = initSymptom();
+            PatMassnahmeDto mas = initMasnahme();
+
+            //            PatPhenomenDaoImpl.getInstance().addPenomen(sym);
+            //            PatPhenomenDaoImpl.getInstance().addPenomen(dia);
+            //            PatPhenomenDaoImpl.getInstance().addPenomen(mas);
+            patSym.add(sym);
+            patMas.add(mas);
+
+            ins.setSym(patSym);
+            ins.setDia(patDia);
+            ins.setMas(patMas);
+
+            InstanceDaoImpl.getInstance().createInstance(ins);
+
+            LOGGER.info("Logger Name: " + LOGGER.getName() + " alle pehomene gesettet ");
+
+            if (currentPat.getEhrEntry() == null) {
+                currentPat.setEhrEntry(new ArrayList<InstanceDto>());
+                LOGGER.info("Logger Name: " + LOGGER.getName() + " Neue Fallakte für neuen Patienten angelegt");
+            }
+            //            currentPat.getEhrEntry().add(ins);
+            //            InstanceDaoImpl.getInstance().createInstance(ins);
+        }
+        PatientDaoImpl.getInstance().updatePatient(currentPat);
+        dispose();
+        setVisible(false);
+    }//GEN-LAST:event_okButtonActionPerformed
+
+    private void jTfSinceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTfSinceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTfSinceActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Map<String, String> temp = Icd10Connector.getInstance().findIcdByName(jTextField2.getText());
@@ -324,60 +444,42 @@ public class NewInstanceView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTfSinceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTfSinceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTfSinceActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//        PatDiagnoseDto nDiagnose = new PatDiagnoseDto();
-//        nDiagnose.setDate(new Date());
-//        nDiagnose.setPatient(currentPat);
-//        nDiagnose.setIcd_code(dtm.getValueAt(icdResultT.getSelectedRow(), 0) + "");
-//        nDiagnose.setIcd_Description(dtm.getValueAt(icdResultT.getSelectedRow(), 1) + "");
-//        nDiagnose.setSince(jTfSince.getText());
-//        nDiagnose.setWrittenBy(new HealthProfessional());
-//        nDiagnose.setComment("COMMENT");
-//        InstanceDto nIns = new InstanceDto();
-//        nIns.setDate(new Date());
-//        nIns.setDia(nDiagnose);
-//        InstanceDaoImpl.getInstance().createInstance(nIns);
-//        nIns.setMas();
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (icdResultT.getSelectedRow() == -1) {
-        } else {
-            PatDiagnoseDto nDiagnose = new PatDiagnoseDto();
-            nDiagnose.setDate(new Date());
-            nDiagnose.setPatient(currentPat);
-            nDiagnose.setIcd_code(dtm.getValueAt(icdResultT.getSelectedRow(), 0) + "");
-            nDiagnose.setIcd_Description(dtm.getValueAt(icdResultT.getSelectedRow(), 1) + "");
-            nDiagnose.setSince(jTfSince.getText());
-            nDiagnose.setWrittenBy("qwe");
-            nDiagnose.setComment("COMMENT");
-            InstanceDto ins = new InstanceDto();
-            ins.setDate(new Date());
-            ins.setPat(currentPat);
-            if (currentPat.getEhrEntry() == null) {
-                currentPat.setEhrEntry(new ArrayList<InstanceDto>());
-            }
-            currentPat.getEhrEntry().add(ins);
-            InstanceDaoImpl.getInstance().createInstance(ins);
+    private void addDiagnoseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDiagnoseButtonActionPerformed
+        PatDiagnoseDto dia = initDiagnose();
+        patDia.add(dia);
+        additionsDiagnosesJLabel.setVisible(true);
+        String diaToolTipText = "";
+        for (PatDiagnoseDto x : patDia) {
+            diaToolTipText = diaToolTipText + "<br>" + x.getIcd_code() + " " + x.getIcd_Description();
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+        additionsDiagnosesJLabel.setToolTipText("<html>" + diaToolTipText + "</html>");
 
-    private void onWindowClose(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onWindowClose
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_onWindowClose
+    }//GEN-LAST:event_addDiagnoseButtonActionPerformed
+
+    private void addSymptomsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSymptomsButtonActionPerformed
+        AdditionalSymptomsView aSv = new AdditionalSymptomsView(this);
+        aSv.setVisible(true);
+        additionSymptomeJLabel.setVisible(true);
+    }//GEN-LAST:event_addSymptomsButtonActionPerformed
+
+    public void buildSymToolTip() {
+        String symToolTipText = "";
+        for (PatSymptomDto x : patSym) {
+            symToolTipText = symToolTipText + "<br>" + x.getLocation() + " " + x.getIntensity();
+        }
+        additionSymptomeJLabel.setToolTipText("<html>" + symToolTipText + "</html>");
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addDiagnoseButton;
+    private javax.swing.JButton addSymptomsButton;
+    private javax.swing.JLabel additionSymptomeJLabel;
+    private javax.swing.JLabel additionsDiagnosesJLabel;
+    private javax.swing.JPanel diagnosesJl;
     private javax.swing.JTable icdResultT;
+    private javax.swing.JTextField intensityjTF;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -386,12 +488,13 @@ public class NewInstanceView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTfSince;
+    private javax.swing.JTextField lokationjTF;
+    private javax.swing.JTextField massnameJtF;
+    private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
+
 }

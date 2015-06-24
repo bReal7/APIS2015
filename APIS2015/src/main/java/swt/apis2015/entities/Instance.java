@@ -5,11 +5,13 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -26,13 +28,17 @@ public class Instance implements Serializable {
     private Long id;
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "pat_id")
     private Patient pat;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "sym_id")
     private List<PatSymptom> sym;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "dia_id")
     private List<PatDiagnose> dia;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "mas_id")
     private List<PatMassnahme> mas;
 
     public Instance() {
@@ -54,14 +60,10 @@ public class Instance implements Serializable {
         this.date = date;
     }
 
-    public Patient getPat() {
-        return pat;
-    }
 
-    public void setPat(Patient pat) {
-        this.pat = pat;
+    public List<PatSymptom> getSym() {
+        return sym;
     }
-
 
     public void setSym(List<PatSymptom> sym) {
         this.sym = sym;
@@ -82,8 +84,6 @@ public class Instance implements Serializable {
     public void setMas(List<PatMassnahme> mas) {
         this.mas = mas;
     }
-
-
 
     @Override
     public int hashCode() {

@@ -278,7 +278,7 @@ public class SigningView extends javax.swing.JFrame {
         hp.setGehalt(Integer.parseInt(gahaltTf.getText()));
         if (roleComboBox.getSelectedItem() == "Doctor") {
             hp.setRole(HPRole.DOCTOR);
-                    
+            
         } else {
             hp.setRole(HPRole.NURSE);
         }
@@ -290,12 +290,14 @@ public class SigningView extends javax.swing.JFrame {
             HealthProfessionalDaoLogic.getInstance().addHP(initialHp());
             this.setVisible(false);
             this.dispose();
+            System.exit(0);
+
 //            EpaView ew = new EpaView();
 //            ew.setVisible(true);
         } else {
             wrongPasswortLabel.setVisible(true);
         }
-
+        
 
     }//GEN-LAST:event_weiterBtnActionPerformed
 

@@ -20,7 +20,7 @@ public interface PatientDao {
     
     public PatientDto findPatientByOid(int oid);
     
-    public void updatePatient();
+    public void updatePatient(PatientDto pat);
 
     public void deletePatient();
 

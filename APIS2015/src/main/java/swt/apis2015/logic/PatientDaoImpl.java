@@ -39,11 +39,6 @@ public class PatientDaoImpl implements PatientDao {
     }
 
     @Override
-    public void updatePatient() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void deletePatient() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -61,5 +56,10 @@ public class PatientDaoImpl implements PatientDao {
     @Override
     public boolean isAlreadyRegistered(int oid) {
         return PatientDaoSource.getInstance().isAlreadyRegistered(oid);
+    }
+
+    @Override
+    public void updatePatient(PatientDto pat) {
+        PatientDaoSource.getInstance().updatePatient(pat);
     }
 }
