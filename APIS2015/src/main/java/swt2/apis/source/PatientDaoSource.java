@@ -13,7 +13,6 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import swt.apis2015.entities.HealthProfessional;
 import swt.apis2015.entities.Patient;
 import swt.apis2015.interfaces.PatientDao;
 import swt2.apis2015.dto.PatientDto;
