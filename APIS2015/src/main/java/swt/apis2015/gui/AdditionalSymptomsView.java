@@ -232,8 +232,8 @@ public class AdditionalSymptomsView extends javax.swing.JFrame {
         if (!lokationjTF1.getText().equals("") && !intensityjTF1.getText().equals("")) {
             PatSymptomDto nSymptom = new PatSymptomDto();
             nSymptom.setDate(new Date());
-            nSymptom.setIntensity(intensityjTF.getText());
-            nSymptom.setLocation(lokationjTF.getText());
+            nSymptom.setIntensity(intensityjTF1.getText());
+            nSymptom.setLocation(lokationjTF1.getText());
             nSymptom.setComment("");
             nSymptom.setPatient(nIv.currentPat);
             nSymptom.setWrittenBy("qwe");

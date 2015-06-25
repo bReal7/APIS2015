@@ -7,6 +7,8 @@ package swt2.apis.source;
 
 import apis2015.util.HibernateUtil;
 import java.util.List;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -40,7 +42,7 @@ public class HealthProfessionalDaoSource implements HealthProfessionalDao {
 
     @Override
     public void deleteHP() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -57,34 +59,39 @@ public class HealthProfessionalDaoSource implements HealthProfessionalDao {
     }
 
     private HealthProfessional hpDtoToEntity(HealthProfessionalDto hp) {
-        HealthProfessional nUser = new HealthProfessional();
-        nUser.setId(hp.getId());
-        nUser.setBirthday(hp.getBirthday());
-        nUser.setCity(hp.getCity());
-        nUser.setCountry(hp.getCountry());
-        nUser.setFirstName(hp.getFirstName());
-        nUser.setGehalt(hp.getGehalt());
-        nUser.setPassword(hp.getPassword());
-        nUser.setPostalCode(hp.getPostalCode());
-        nUser.setStreet(hp.getStreet());
-        nUser.setSurname(hp.getSurname());
-        nUser.setRole(hp.getRole());
+//        HealthProfessional nUser = new HealthProfessional();
+        Mapper mapper = new DozerBeanMapper();
+        HealthProfessional nUser = mapper.map(hp, HealthProfessional.class);
+//        nUser.setId(hp.getId());
+//        nUser.setBirthday(hp.getBirthday());
+//        nUser.setCity(hp.getCity());
+//        nUser.setCountry(hp.getCountry());
+//        nUser.setFirstName(hp.getFirstName());
+//        nUser.setGehalt(hp.getGehalt());
+//        nUser.setPassword(hp.getPassword());
+//        nUser.setPostalCode(hp.getPostalCode());
+//        nUser.setStreet(hp.getStreet());
+//        nUser.setSurname(hp.getSurname());
+//        nUser.setRole(hp.getRole());
         return nUser;
     }
 
     private HealthProfessionalDto hpEntityToDto(HealthProfessional hp) {
-        HealthProfessionalDto nUser = new HealthProfessionalDto();
-        nUser.setId(hp.getId());
-        nUser.setBirthday(hp.getBirthday());
-        nUser.setCity(hp.getCity());
-        nUser.setCountry(hp.getCountry());
-        nUser.setFirstName(hp.getFirstName());
-        nUser.setGehalt(hp.getGehalt());
-        nUser.setPassword(hp.getPassword());
-        nUser.setPostalCode(hp.getPostalCode());
-        nUser.setStreet(hp.getStreet());
-        nUser.setSurname(hp.getSurname());
-        nUser.setRole(hp.getRole());
+//        HealthProfessionalDto nUser = new HealthProfessionalDto();
+        Mapper mapper = new DozerBeanMapper();
+        HealthProfessionalDto nUser = mapper.map(hp, HealthProfessionalDto.class);
+
+//        nUser.setId(hp.getId());
+//        nUser.setBirthday(hp.getBirthday());
+//        nUser.setCity(hp.getCity());
+//        nUser.setCountry(hp.getCountry());
+//        nUser.setFirstName(hp.getFirstName());
+//        nUser.setGehalt(hp.getGehalt());
+//        nUser.setPassword(hp.getPassword());
+//        nUser.setPostalCode(hp.getPostalCode());
+//        nUser.setStreet(hp.getStreet());
+//        nUser.setSurname(hp.getSurname());
+//        nUser.setRole(hp.getRole());
         return nUser;
     }
 

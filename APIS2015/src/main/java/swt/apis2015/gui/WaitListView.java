@@ -17,7 +17,7 @@ import swt2.apis2015.dto.PatientDto;
  * @author B-Real
  */
 public class WaitListView extends javax.swing.JFrame implements Observer {
-
+    
     DefaultTableModel dtm;
     WaitListHandler wLh;
 
@@ -30,7 +30,7 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         wLh = WaitListHandler.getInstance();
         List<PatientDto> pl = wLh.getWaitList();
         clearTable();
-
+        
         if (pl.size() > 0) {
             int i = 0;
             for (PatientDto x : pl) {
@@ -168,6 +168,8 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+        this.setVisible(false);
         EpaView ew;
         ew = new EpaView(wLh.next().getId());
         ew.setVisible(true);
@@ -194,9 +196,9 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
     public void update(Observable o, Object arg) {
         System.out.println("askdnsdfklön");
         List<PatientDto> pl = wLh.getWaitList();
-
+        
         clearTable();
-
+        
         if (pl.size() > 0) {
             int i = 0;
             for (PatientDto x : pl) {
@@ -204,7 +206,7 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
             }
         }
     }
-
+    
     private void clearTable() {
         if (dtm.getRowCount() > 0) {
             for (int i = dtm.getRowCount() - 1; i > -1; i--) {

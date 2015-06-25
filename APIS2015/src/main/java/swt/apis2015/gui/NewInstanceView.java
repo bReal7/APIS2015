@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import swt.apis2015.logic.Icd10Connector;
 import swt.apis2015.logic.InstanceDaoImpl;
-import swt.apis2015.logic.PatientDaoImpl;
 import swt2.apis2015.dto.InstanceDto;
 import swt2.apis2015.dto.PatDiagnoseDto;
 import swt2.apis2015.dto.PatMassnahmeDto;
@@ -37,9 +36,20 @@ public class NewInstanceView extends javax.swing.JFrame {
     /**
      * Creates new form NeuerFallJFrame
      */
-    public NewInstanceView(long id) {
+//    public NewInstanceView(long id) {
+//        initComponents();
+//        currentPat = PatientDaoImpl.getInstance().getPatientByID(id);
+//        LOGGER.info("Logger Name: " + LOGGER.getName() + " Neue instanz für Patien: id=" + currentPat.getId());
+//        dtm = (DefaultTableModel) icdResultT.getModel();
+//        patSym = new ArrayList<PatSymptomDto>();
+//        patDia = new ArrayList<PatDiagnoseDto>();
+//        patMas = new ArrayList<PatMassnahmeDto>();
+//        additionsDiagnosesJLabel.setVisible(false);
+//        additionSymptomeJLabel.setVisible(false);
+//    }
+    NewInstanceView(PatientDto currentPat) {
         initComponents();
-        currentPat = PatientDaoImpl.getInstance().getPatientByID(id);
+        this.currentPat = currentPat;
         LOGGER.info("Logger Name: " + LOGGER.getName() + " Neue instanz für Patien: id=" + currentPat.getId());
         dtm = (DefaultTableModel) icdResultT.getModel();
         patSym = new ArrayList<PatSymptomDto>();
@@ -397,37 +407,29 @@ public class NewInstanceView extends javax.swing.JFrame {
     }//GEN-LAST:event_onWindowClose
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        InstanceDto ins = new InstanceDto();
         if (icdResultT.getSelectedRow() == -1) {
         } else {
-            InstanceDto ins = new InstanceDto();
             ins.setDate(new Date());
             ins.setPat(currentPat);
 
             PatSymptomDto sym = initSymptom();
             PatMassnahmeDto mas = initMasnahme();
 
-            //            PatPhenomenDaoImpl.getInstance().addPenomen(sym);
-            //            PatPhenomenDaoImpl.getInstance().addPenomen(dia);
-            //            PatPhenomenDaoImpl.getInstance().addPenomen(mas);
             patSym.add(sym);
             patMas.add(mas);
 
             ins.setSym(patSym);
             ins.setDia(patDia);
             ins.setMas(patMas);
-
-            InstanceDaoImpl.getInstance().createInstance(ins);
-
             LOGGER.info("Logger Name: " + LOGGER.getName() + " alle pehomene gesettet ");
+            InstanceDaoImpl.getInstance().createInstance(ins);
 
             if (currentPat.getEhrEntry() == null) {
                 currentPat.setEhrEntry(new ArrayList<InstanceDto>());
                 LOGGER.info("Logger Name: " + LOGGER.getName() + " Neue Fallakte für neuen Patienten angelegt");
             }
-            //            currentPat.getEhrEntry().add(ins);
-            //            InstanceDaoImpl.getInstance().createInstance(ins);
         }
-        PatientDaoImpl.getInstance().updatePatient(currentPat);
         dispose();
         setVisible(false);
     }//GEN-LAST:event_okButtonActionPerformed

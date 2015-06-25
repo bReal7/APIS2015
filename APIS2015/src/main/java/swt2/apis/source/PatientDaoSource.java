@@ -9,8 +9,11 @@ import apis2015.util.HibernateUtil;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import swt.apis2015.entities.HealthProfessional;
 import swt.apis2015.entities.Patient;
 import swt.apis2015.interfaces.PatientDao;
 import swt2.apis2015.dto.PatientDto;
@@ -40,7 +43,6 @@ public class PatientDaoSource implements PatientDao {
         System.out.println(id);
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
-            System.out.println(id);
             session.getTransaction().begin();
             Query query = session.createQuery("FROM Patient p WHERE p.id = :id");
             query.setParameter("id", id);
@@ -48,7 +50,7 @@ public class PatientDaoSource implements PatientDao {
                 PatientDto result = entityToPatDto((Patient) query.list().get(0));
                 System.out.println(query.list().size());
                 session.getTransaction().commit();
-                LOGGER.info("Logger Name: " + LOGGER.getName() + "getPatientById(" + id + ") = " + result.getFirstname() + " " + result.getSurname());
+                LOGGER.info("Logger Name: " + LOGGER.getName() + "getPatientById(" + id + ") = " + result.getFirstname() + " " + result.getSurname() + "Anzahl der Faelle = " + result.getEhrEntry().size());
                 return result;
             }
         } catch (Exception e) {
@@ -91,7 +93,7 @@ public class PatientDaoSource implements PatientDao {
         session.merge(patDtoToEntity(pat));
         session.flush();
         session.getTransaction().commit();
-          LOGGER.info("Logger Name: " + LOGGER.getName() + "updated: " + pat.getSurname());
+        LOGGER.info("Logger Name: " + LOGGER.getName() + "updated: " + pat.getSurname());
     }
 
     @Override
@@ -118,17 +120,19 @@ public class PatientDaoSource implements PatientDao {
      Wenn ein Patient zum ersten mal angelegt wird muss die darf die Id nicht überschrieben werden,
      denn im Konstruktor wird die Id automatisch erzeugt
      */ public Patient patDtoToNewEntity(PatientDto nPat) {
-        Patient pat = new Patient();
-        pat.setEhrEntry(PatPhenomenDaoSource.getInstance().ehrEntryDtoToEntity(nPat.getEhrEntry()));
-        pat.setBirthday(nPat.getBirthday());
-        pat.setCity(nPat.getCity());
-        pat.setCountry(nPat.getCountry());
-        pat.setFirstName(nPat.getFirstname());
-        pat.setInsuranceContract(nPat.getInsuranceContract());
-        pat.setPostalCode(nPat.getPostalCode());
-        pat.setStreet(nPat.getStreet());
-        pat.setSurname(nPat.getSurname());
-        pat.setPatientOID(nPat.getPatientOID());
+
+        Mapper mapper = new DozerBeanMapper();
+        Patient pat = mapper.map(nPat, Patient.class);
+//        pat.setEhrEntry(InstanceDaoSource.getInstance().insDtoToEntity(nPat.getEhrEntry()));
+//        pat.setBirthday(nPat.getBirthday());
+//        pat.setCity(nPat.getCity());
+//        pat.setCountry(nPat.getCountry());
+//        pat.setFirstName(nPat.getFirstname());
+//        pat.setInsuranceContract(nPat.getInsuranceContract());
+//        pat.setPostalCode(nPat.getPostalCode());
+//        pat.setStreet(nPat.getStreet());
+//        pat.setSurname(nPat.getSurname());
+//        pat.setPatientOID(nPat.getPatientOID());
         return pat;
     } /*
      Hier muss die id gesetzt werden
@@ -136,26 +140,70 @@ public class PatientDaoSource implements PatientDao {
 
 
     public Patient patDtoToEntity(PatientDto nPat) {
-        Patient pat = patDtoToNewEntity(nPat);
-        pat.setId(nPat.getId());
+//        Patient pat = patDtoToNewEntity(nPat);
+//        pat.setId(nPat.getId());
+        Mapper mapper = new DozerBeanMapper();
+        Patient pat = mapper.map(nPat, Patient.class);
         return pat;
     }
 
     public PatientDto entityToPatDto(Patient pat) {
-        PatientDto patDto = new PatientDto();
-        patDto.setEhrEntry(PatPhenomenDaoSource.getInstance().entityEhrEntryToEhrEntryDto(pat.getEhrEntry()));
-        patDto.setId(pat.getId());
-        patDto.setBirthday(pat.getBirthday());
-        patDto.setCity(pat.getCity());
-        patDto.setCountry(pat.getCountry());
-        patDto.setFirstname(pat.getFirstName());
-        patDto.setInsuranceContract(pat.getInsuranceContract());
-        patDto.setPostalCode(pat.getPostalCode());
-        patDto.setStreet(pat.getStreet());
-        patDto.setSurname(pat.getSurname());
-        patDto.setPatientOID(pat.getPatientOID());
+//        PatientDto patDto = new PatientDto();
+//        LOGGER.info("Logger Name: " + LOGGER.getName() + "Anzahl der aus DB geladenen Fälle zu deisem Patienten = " + pat.getEhrEntry().size());
+//        patDto.setEhrEntry(PatPhenomenDaoSource.getInstance().entityEhrEntryToEhrEntryDto(pat.getEhrEntry(), patDto));
+//        LOGGER.info("Logger Name: " + LOGGER.getName() + "Anzahl der Fälle nach konvertierung zu diesem Patienten ent->dto = " + patDto.getEhrEntry().size());
+//        patDto.setId(pat.getId());
+//        patDto.setBirthday(pat.getBirthday());
+//        patDto.setCity(pat.getCity());
+//        patDto.setCountry(pat.getCountry());
+//        patDto.setFirstname(pat.getFirstName());
+//        patDto.setInsuranceContract(pat.getInsuranceContract());
+//        patDto.setPostalCode(pat.getPostalCode());
+//        patDto.setStreet(pat.getStreet());
+//        patDto.setSurname(pat.getSurname());
+//        patDto.setPatientOID(pat.getPatientOID());
+
+        Mapper mapper = new DozerBeanMapper();
+        PatientDto patDto = mapper.map(pat, PatientDto.class);
+
         return patDto;
     }
+
+//    public PatientDto entityToPatDtoExceptEhr(Patient pat) {
+//        PatientDto patDto = new PatientDto();
+//        LOGGER.info("Logger Name: " + LOGGER.getName() + "Anzahl der aus DB geladenen Fälle zu deisem Patienten = " + pat.getEhrEntry().size());
+////        patDto.setEhrEntry(PatPhenomenDaoSource.getInstance().entityEhrEntryToEhrEntryDto(pat.getEhrEntry()));
+//        LOGGER.info("Logger Name: " + LOGGER.getName() + "Anzahl der Fälle nach konvertierung zu diesem Patienten ent->dto = " + patDto.getEhrEntry().size());
+//        patDto.setId(pat.getId());
+//        patDto.setBirthday(pat.getBirthday());
+//        patDto.setCity(pat.getCity());
+//        patDto.setCountry(pat.getCountry());
+//        patDto.setFirstname(pat.getFirstName());
+//        patDto.setInsuranceContract(pat.getInsuranceContract());
+//        patDto.setPostalCode(pat.getPostalCode());
+//        patDto.setStreet(pat.getStreet());
+//        patDto.setSurname(pat.getSurname());
+//        patDto.setPatientOID(pat.getPatientOID());
+//        return patDto;
+//    }
+
+//    public Patient PatDtoentityToExceptEhr(PatientDto patientDto) {
+//        Patient pat = new Patient();
+//        LOGGER.info("Logger Name: " + LOGGER.getName() + "Anzahl der aus DB geladenen Fälle zu deisem Patienten = " + patientDto.getEhrEntry().size());
+////        patDto.setEhrEntry(PatPhenomenDaoSource.getInstance().entityEhrEntryToEhrEntryDto(pat.getEhrEntry()));
+//        LOGGER.info("Logger Name: " + LOGGER.getName() + "Anzahl der Fälle nach konvertierung zu diesem Patienten ent->dto = " + pat.getEhrEntry().size());
+//        pat.setId(patientDto.getId());
+//        pat.setBirthday(patientDto.getBirthday());
+//        pat.setCity(patientDto.getCity());
+//        pat.setCountry(patientDto.getCountry());
+//        pat.setFirstName(patientDto.getFirstname());
+//        pat.setInsuranceContract(patientDto.getInsuranceContract());
+//        pat.setPostalCode(patientDto.getPostalCode());
+//        pat.setStreet(patientDto.getStreet());
+//        pat.setSurname(patientDto.getSurname());
+//        pat.setPatientOID(patientDto.getPatientOID());
+//        return pat;
+//    }
 
     Patient getPatienById(long id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

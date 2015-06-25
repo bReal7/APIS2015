@@ -1,7 +1,6 @@
 package swt.apis2015.entities;
 
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import swt.apis2015.enums.InsurenceContract;
@@ -14,7 +13,7 @@ public class Patient extends Person implements java.io.Serializable {
 
     private InsurenceContract insuranceContract;
     private int patientOID;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pat")
+    @OneToMany(mappedBy = "pat")
     private List<Instance> ehrEntry;
 
     public Patient() {

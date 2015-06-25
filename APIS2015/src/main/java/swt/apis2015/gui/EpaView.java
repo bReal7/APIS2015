@@ -7,38 +7,64 @@ package swt.apis2015.gui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
+import swt.apis2015.logic.InstanceDaoImpl;
 import swt.apis2015.logic.PatientDaoImpl;
-import swt2.apis2015.dto.InstanceDto;
 import swt2.apis2015.dto.PatientDto;
 
 /**
  *
  * @author B-Real
  */
-public class EpaView extends javax.swing.JFrame {
+public class EpaView extends javax.swing.JFrame implements Observer {
 
-    private long id;
+    private static final Logger LOGGER = Logger.getLogger(EpaView.class.getName());
+    DefaultTableModel stm;
+    DefaultTableModel dtm;
+    DefaultListModel listModell;
+    DefaultListModel listMasModell;
+    private PatientDto currentPat;
 
     /**
      * Creates new form Epa
      */
     public EpaView(long id) {
         initComponents();
-        this.id = id;
-        PatientDto pat = PatientDaoImpl.getInstance().getPatientByID(id);
-        pId.setText(String.valueOf(pat.getId()));
-        oid.setText(String.valueOf(pat.getPatientOID()));
-        nname.setText(pat.getSurname());
-        vname.setText(pat.getFirstname());
+        InstanceDaoImpl.getInstance().addObserver(this);
+        listMasModell = new DefaultListModel();
+        
+        LOGGER.info("Logger Name: " + LOGGER.getName() + "Elektronische Paienten Akte öffnet" + id);
+        currentPat = PatientDaoImpl.getInstance().getPatientByID(id);
+        LOGGER.info("Logger Name: " + LOGGER.getName() + "Paienten Fälle size = " + currentPat.getEhrEntry().size());
+        pId.setText(String.valueOf(currentPat.getId()));
+        oid.setText(String.valueOf(currentPat.getPatientOID()));
+        nname.setText(currentPat.getSurname());
+        vname.setText(currentPat.getFirstname());
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        geb.setText(format.format(pat.getBirthday()));
-        vs.setText(String.valueOf(pat.getInsuranceContract()));
-        DefaultListModel modell = new DefaultListModel();
-        for (InstanceDto x : pat.getEhrEntry()) {
-            modell.addElement(x.getDate());
+        geb.setText(format.format(currentPat.getBirthday()));
+        vs.setText(String.valueOf(currentPat.getInsuranceContract()));
+        listModell = new DefaultListModel();
+        for (int i = 0; i < currentPat.getEhrEntry().size(); i++) {
+            listModell.addElement(currentPat.getEhrEntry().get(i).getDate());
+            LOGGER.info("Logger Name: " + LOGGER.getName() + "fallakte gefunden id:" + i);
         }
-        fealleJList.setModel(modell);
+        fealleJList.setModel(listModell);
+//        if (fealleJList.getModel().getSize() > 0) {
+//            fealleJList.setSelectedIndex(0);
+//            LOGGER.info("Logger Name: " + LOGGER.getName() + "Selected Index setted to " + fealleJList.getSelectedIndex());
+//        }
+//        int selectedInstance = fealleJList.getSelectedIndex();
+//        stm = (DefaultTableModel) symptomJtable.getModel();
+//        if (fealleJList.getModel().getSize() > 0) {
+//            for (int i = 0; i < currentPat.getEhrEntry().get(selectedInstance).getSym().size(); i++) {
+//                stm.addRow(new Object[]{currentPat.getEhrEntry().get(selectedInstance).getSym().get(i).getLocation(), currentPat.getEhrEntry().get(selectedInstance).getSym().get(i).getIntensity()});
+//                LOGGER.info("Logger Name: " + LOGGER.getName() + "symptom zur tabelle hinzugefügt id : ");
+//            }
+//        }
     }
 
     /**
@@ -71,12 +97,12 @@ public class EpaView extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        diagnoseJtable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList();
+        jListMasnahmen = new javax.swing.JList();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        symptomJtable = new javax.swing.JTable();
         Faelle = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         fealleJList = new javax.swing.JList();
@@ -135,12 +161,9 @@ public class EpaView extends javax.swing.JFrame {
 
         jScrollPane3.setBackground(new java.awt.Color(102, 153, 255));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        diagnoseJtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Diagnose", "Seit"
@@ -154,16 +177,16 @@ public class EpaView extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(diagnoseJtable);
 
         jLabel3.setText("Massnahme:");
 
-        jList3.setModel(new javax.swing.AbstractListModel() {
+        jListMasnahmen.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane4.setViewportView(jList3);
+        jScrollPane4.setViewportView(jListMasnahmen);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -193,12 +216,9 @@ public class EpaView extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(102, 153, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        symptomJtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Symptom", "Stärke"
@@ -212,7 +232,7 @@ public class EpaView extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(symptomJtable);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -260,6 +280,11 @@ public class EpaView extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
+        fealleJList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                fealleJListValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(fealleJList);
 
         javax.swing.GroupLayout FaelleLayout = new javax.swing.GroupLayout(Faelle);
@@ -376,8 +401,39 @@ public class EpaView extends javax.swing.JFrame {
     }//GEN-LAST:event_onWindowCloseHandler
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new NewInstanceView(id).setVisible(true);        // TODO add your handling code here:
+        LOGGER.info("Logger Name: " + LOGGER.getName() + "Neuer Fall für Pat id " + currentPat.getId());
+        new NewInstanceView(this.currentPat).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void fealleJListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_fealleJListValueChanged
+        int selIns = fealleJList.getSelectedIndex();
+        stm = (DefaultTableModel) symptomJtable.getModel();
+        stm.getDataVector().removeAllElements();
+        dtm = (DefaultTableModel) diagnoseJtable.getModel();
+        dtm.getDataVector().removeAllElements();
+        listMasModell.removeAllElements();
+        
+        if (selIns >= 0) {
+
+            LOGGER.info("Logger Name: " + LOGGER.getName() + "List value changed" + fealleJList.getSelectedIndex());
+            int counSym = currentPat.getEhrEntry().get(selIns).getSym().size();
+            for (int i = 0; i < counSym; i++) {
+                stm.addRow(new Object[]{currentPat.getEhrEntry().get(selIns).getSym().get(i).getLocation(), currentPat.getEhrEntry().get(selIns).getSym().get(i).getIntensity()});
+            }
+            
+            int counDia = currentPat.getEhrEntry().get(selIns).getDia().size();
+            for (int i = 0; i < counDia; i++) {
+                LOGGER.info("Logger Name: " + LOGGER.getName() + "diagnesen gezählt " + counDia);
+                dtm.addRow(new Object[]{currentPat.getEhrEntry().get(selIns).getDia().get(i).getIcd_code(), currentPat.getEhrEntry().get(selIns).getDia().get(i).getIcd_Description()});
+            }
+            int counMas = currentPat.getEhrEntry().get(selIns).getMas().size();
+            for (int i = 0; i < counMas; i++) {
+                listMasModell.addElement(currentPat.getEhrEntry().get(selIns).getMas().get(i).getText());
+                LOGGER.info("Logger Name: " + LOGGER.getName() + "fallakte gefunden id:" + i);
+            }
+            jListMasnahmen.setModel(listMasModell);
+        }
+    }//GEN-LAST:event_fealleJListValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -390,6 +446,7 @@ public class EpaView extends javax.swing.JFrame {
     private javax.swing.JPanel Stammdaten;
     private javax.swing.JLabel VersichertenStatu;
     private javax.swing.JLabel Vorname;
+    private javax.swing.JTable diagnoseJtable;
     private javax.swing.JList fealleJList;
     private javax.swing.JLabel geb;
     private javax.swing.JButton jButton1;
@@ -397,19 +454,29 @@ public class EpaView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList jList3;
+    private javax.swing.JList jListMasnahmen;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel nname;
     private javax.swing.JLabel oid;
     private javax.swing.JLabel pId;
+    private javax.swing.JTable symptomJtable;
     private javax.swing.JLabel vname;
     private javax.swing.JLabel vs;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+        currentPat = PatientDaoImpl.getInstance().getPatientByID(currentPat.getId());
+        listModell.removeAllElements();
+        for (int i = 0; i < currentPat.getEhrEntry().size(); i++) {
+            listModell.addElement(currentPat.getEhrEntry().get(i).getDate());
+            LOGGER.info("Logger Name: " + LOGGER.getName() + "fallakte gefunden id:" + i);
+        }
+        fealleJList.setModel(listModell);
+    }
 }

@@ -5,6 +5,7 @@
  */
 package swt.apis2015.logic;
 
+import java.util.Observable;
 import swt.apis2015.interfaces.InstanceDao;
 import swt2.apis.source.InstanceDaoSource;
 import swt2.apis2015.dto.InstanceDto;
@@ -13,11 +14,12 @@ import swt2.apis2015.dto.InstanceDto;
  *
  * @author B-Real
  */
-public class InstanceDaoImpl implements InstanceDao {
+public class InstanceDaoImpl extends Observable implements InstanceDao  {
 
     private static InstanceDaoImpl instance = null;
 
     private InstanceDaoImpl() {
+        super();
     }
 
     public static InstanceDaoImpl getInstance() {
@@ -30,6 +32,8 @@ public class InstanceDaoImpl implements InstanceDao {
     @Override
     public void createInstance(InstanceDto nIns) {
         InstanceDaoSource.getInstance().createInstance(nIns);
+        setChanged();
+        notifyObservers();
     }
 
     @Override

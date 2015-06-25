@@ -28,17 +28,13 @@ public class Instance implements Serializable {
     private Long id;
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinColumn(name = "pat_id")
+    @ManyToOne
     private Patient pat;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "sym_id")
     private List<PatSymptom> sym;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "dia_id")
     private List<PatDiagnose> dia;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "mas_id")
     private List<PatMassnahme> mas;
 
     public Instance() {
@@ -60,6 +56,13 @@ public class Instance implements Serializable {
         this.date = date;
     }
 
+    public Patient getPat() {
+        return pat;
+    }
+
+    public void setPat(Patient pat) {
+        this.pat = pat;
+    }
 
     public List<PatSymptom> getSym() {
         return sym;

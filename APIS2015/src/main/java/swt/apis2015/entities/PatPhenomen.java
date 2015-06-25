@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -20,8 +19,8 @@ public abstract class PatPhenomen implements Serializable {
     private Date date;
     private String writtenBy;
     private String comment;
-    @ManyToOne
-    private Patient patient;
+//    @ManyToOne
+//    private Patient patient;
 //    @ManyToMany
 //    @JoinTable(name = "phenomen_document", joinColumns = {
 //        @JoinColumn(name = "phe_id", referencedColumnName = "ID")},
@@ -60,25 +59,16 @@ public abstract class PatPhenomen implements Serializable {
     public void setComment(String comment) {
         this.comment = comment;
     }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-    
-    
-    
-
-//    public List<Document> getDocument() {
-//        return document;
+//
+//    public Patient getPatient() {
+//        return patient;
 //    }
 //
-//    public void setDocument(List<Document> document) {
-//        this.document = document;
+//    public void setPatient(Patient patient) {
+//        this.patient = patient;
 //    }
+    
+
 
     @Override
     public int hashCode() {

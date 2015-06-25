@@ -40,10 +40,8 @@ public class PatientSuchenView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         Nachname = new javax.swing.JLabel();
-        Vorname = new javax.swing.JLabel();
         suchenButton = new javax.swing.JButton();
         NachnameTf = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         resultT = new javax.swing.JTable();
@@ -68,9 +66,7 @@ public class PatientSuchenView extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
-        Nachname.setText("Nachname:");
-
-        Vorname.setText("Vorname:");
+        Nachname.setText("Name:");
 
         suchenButton.setBackground(new java.awt.Color(102, 102, 255));
         suchenButton.setText("Suchen");
@@ -82,13 +78,6 @@ public class PatientSuchenView extends javax.swing.JFrame {
 
         NachnameTf.setBackground(new java.awt.Color(102, 153, 255));
 
-        jTextField2.setBackground(new java.awt.Color(102, 153, 255));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -97,13 +86,9 @@ public class PatientSuchenView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Nachname)
-                            .addComponent(Vorname))
+                        .addComponent(Nachname)
                         .addGap(22, 22, 22)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(NachnameTf, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2)))
+                        .addComponent(NachnameTf, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(suchenButton)))
@@ -116,13 +101,9 @@ public class PatientSuchenView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Nachname)
                     .addComponent(NachnameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Vorname)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(suchenButton)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -206,17 +187,14 @@ public class PatientSuchenView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void suchenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suchenButtonActionPerformed
-        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+//        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        dtm.getDataVector().removeAllElements();
         List<PatientDto> pl = PatientDaoImpl.getInstance().getPatientByName(NachnameTf.getText());
         int i = 0;
         for (PatientDto x : pl) {
             dtm.insertRow(i++, new Object[]{x.getId(), x.getSurname(), x.getFirstname(), "", x.getPostalCode(), x.getCity(), x.getStreet()});
         }
     }//GEN-LAST:event_suchenButtonActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void resultTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultTMouseClicked
         int row = resultT.getSelectedRow();
@@ -270,12 +248,10 @@ public class PatientSuchenView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Nachname;
     private javax.swing.JTextField NachnameTf;
-    private javax.swing.JLabel Vorname;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable resultT;
     private javax.swing.JButton suchenButton;
     // End of variables declaration//GEN-END:variables
