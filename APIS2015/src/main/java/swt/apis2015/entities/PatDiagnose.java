@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 
 /**
  *
- * @author B-Real
+ * Die Diagnose wird im gebräuchlichem Standard icd10 dokumentiert Dabei ist
+ * jeweils für die entsprechende diagnose der ICD 10 Code und die Beschreibung
+ * des Codes interessant Zusätzlich wir dkomunetiert seit wann das
+ * diagnostizierte Problem besteht, since Attribut
+ *
  */
 @Entity
 public class PatDiagnose extends PatPhenomen implements Serializable {

@@ -20,8 +20,7 @@ import swt2.apis2015.dto.PatSymptomDto;
 import swt2.apis2015.dto.PatientDto;
 
 /**
- *
- * @author B-Real
+ * Eingabefenster für neue Fälle
  */
 public class NewInstanceView extends javax.swing.JFrame {
 
@@ -33,20 +32,6 @@ public class NewInstanceView extends javax.swing.JFrame {
     List<PatDiagnoseDto> patDia;
     List<PatMassnahmeDto> patMas;
 
-    /**
-     * Creates new form NeuerFallJFrame
-     */
-//    public NewInstanceView(long id) {
-//        initComponents();
-//        currentPat = PatientDaoImpl.getInstance().getPatientByID(id);
-//        LOGGER.info("Logger Name: " + LOGGER.getName() + " Neue instanz für Patien: id=" + currentPat.getId());
-//        dtm = (DefaultTableModel) icdResultT.getModel();
-//        patSym = new ArrayList<PatSymptomDto>();
-//        patDia = new ArrayList<PatDiagnoseDto>();
-//        patMas = new ArrayList<PatMassnahmeDto>();
-//        additionsDiagnosesJLabel.setVisible(false);
-//        additionSymptomeJLabel.setVisible(false);
-//    }
     NewInstanceView(PatientDto currentPat) {
         initComponents();
         this.currentPat = currentPat;
@@ -101,49 +86,44 @@ public class NewInstanceView extends javax.swing.JFrame {
 
         diagnosesJl.setBackground(new java.awt.Color(255, 255, 255));
 
-        addDiagnoseButton.setText("Diagnose hinzufügen");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("swt/apis2015/internationalisation/NewInstanceBundle"); // NOI18N
+        addDiagnoseButton.setText(bundle.getString("NewInstanceView.addDiagnoseButton.text")); // NOI18N
         addDiagnoseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addDiagnoseButtonActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Seit:");
+        jLabel2.setText(bundle.getString("NewInstanceView.jLabel2.text")); // NOI18N
 
-        jButton1.setText(" ICD 10 Code suchen");
+        jButton1.setText(bundle.getString("NewInstanceView.jButton1.text")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jTfSince.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTfSinceActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Diagnose");
+        jLabel1.setText(bundle.getString("NewInstanceView.jLabel1.text")); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Symptome");
+        jLabel3.setText(bundle.getString("NewInstanceView.jLabel3.text")); // NOI18N
 
-        jLabel4.setText("Lokation:");
+        jLabel4.setText(bundle.getString("NewInstanceView.jLabel4.text")); // NOI18N
 
-        jLabel5.setText("Intesität:");
+        jLabel5.setText(bundle.getString("NewInstanceView.jLabel5.text")); // NOI18N
 
-        addSymptomsButton.setText("Zusätzliche Symptome");
+        addSymptomsButton.setText(bundle.getString("NewInstanceView.addSymptomsButton.text")); // NOI18N
         addSymptomsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addSymptomsButtonActionPerformed(evt);
             }
         });
 
-        additionSymptomeJLabel.setText("+Symptome");
+        additionSymptomeJLabel.setText(bundle.getString("NewInstanceView.additionSymptomeJLabel.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -192,11 +172,11 @@ public class NewInstanceView extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Maßnahmen");
+        jLabel6.setText(bundle.getString("NewInstanceView.jLabel6.text")); // NOI18N
 
-        jLabel7.setText("Text:");
+        jLabel7.setText(bundle.getString("NewInstanceView.jLabel7.text")); // NOI18N
 
-        okButton.setText("OK");
+        okButton.setText(bundle.getString("NewInstanceView.okButton.text")); // NOI18N
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
@@ -235,7 +215,7 @@ public class NewInstanceView extends javax.swing.JFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        additionsDiagnosesJLabel.setText("+Diagnosen");
+        additionsDiagnosesJLabel.setText(bundle.getString("NewInstanceView.additionsDiagnosesJLabel.text")); // NOI18N
 
         icdResultT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -406,6 +386,11 @@ public class NewInstanceView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_onWindowClose
 
+    /**
+     * Wenn eine neuer Fall angelegt wird, muss der Patient gesetzt werden,
+     * sowie die jeweiligen, symptome, diagnose und massnahmen  
+     * @param evt 
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         InstanceDto ins = new InstanceDto();
         if (icdResultT.getSelectedRow() == -1) {
@@ -433,10 +418,6 @@ public class NewInstanceView extends javax.swing.JFrame {
         dispose();
         setVisible(false);
     }//GEN-LAST:event_okButtonActionPerformed
-
-    private void jTfSinceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTfSinceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTfSinceActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Map<String, String> temp = Icd10Connector.getInstance().findIcdByName(jTextField2.getText());

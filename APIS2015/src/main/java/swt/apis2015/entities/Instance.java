@@ -9,15 +9,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
+ * Eine Instance ist ein Fall, viele Fälle können zu einen Patienten hinzugefügt
+ * werden, somit bidirectionale ManyToOne - OneToMany Beziehung für Instance -
+ * Patient unidirektionale oneToMany beziehung für Instance - PatSymptom
+ * unidirektionale oneToMany beziehung für Instance - PatDiagnose
+ * unidirektionale oneToMany beziehung für Instance - PatMassnahme
  *
- * @author B-Real
  */
 @Entity
 public class Instance implements Serializable {

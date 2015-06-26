@@ -17,8 +17,8 @@ import swt.apis2015.logic.PatientDaoImpl;
 import swt2.apis2015.dto.PatientDto;
 
 /**
- *
- * @author B-Real
+ * Dieses Fenster zeigt die elektonische Patienten Akte an.
+ * Patientenstammdaten, alle Fälle und alle Phenomene zu den Fällen
  */
 public class EpaView extends javax.swing.JFrame implements Observer {
 
@@ -36,7 +36,6 @@ public class EpaView extends javax.swing.JFrame implements Observer {
         initComponents();
         InstanceDaoImpl.getInstance().addObserver(this);
         listMasModell = new DefaultListModel();
-        
         LOGGER.info("Logger Name: " + LOGGER.getName() + "Elektronische Paienten Akte öffnet" + id);
         currentPat = PatientDaoImpl.getInstance().getPatientByID(id);
         LOGGER.info("Logger Name: " + LOGGER.getName() + "Paienten Fälle size = " + currentPat.getEhrEntry().size());
@@ -53,18 +52,6 @@ public class EpaView extends javax.swing.JFrame implements Observer {
             LOGGER.info("Logger Name: " + LOGGER.getName() + "fallakte gefunden id:" + i);
         }
         fealleJList.setModel(listModell);
-//        if (fealleJList.getModel().getSize() > 0) {
-//            fealleJList.setSelectedIndex(0);
-//            LOGGER.info("Logger Name: " + LOGGER.getName() + "Selected Index setted to " + fealleJList.getSelectedIndex());
-//        }
-//        int selectedInstance = fealleJList.getSelectedIndex();
-//        stm = (DefaultTableModel) symptomJtable.getModel();
-//        if (fealleJList.getModel().getSize() > 0) {
-//            for (int i = 0; i < currentPat.getEhrEntry().get(selectedInstance).getSym().size(); i++) {
-//                stm.addRow(new Object[]{currentPat.getEhrEntry().get(selectedInstance).getSym().get(i).getLocation(), currentPat.getEhrEntry().get(selectedInstance).getSym().get(i).getIntensity()});
-//                LOGGER.info("Logger Name: " + LOGGER.getName() + "symptom zur tabelle hinzugefügt id : ");
-//            }
-//        }
     }
 
     /**
@@ -90,7 +77,7 @@ public class EpaView extends javax.swing.JFrame implements Observer {
         geb = new javax.swing.JLabel();
         vs = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        addInstanceButton = new javax.swing.JButton();
         Falldaten = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -108,7 +95,8 @@ public class EpaView extends javax.swing.JFrame implements Observer {
         fealleJList = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Epa");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("swt/apis2015/internationalisation/Bundle_1"); // NOI18N
+        setTitle(bundle.getString("EpaView.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 onWindowCloseHandler(evt);
@@ -117,47 +105,47 @@ public class EpaView extends javax.swing.JFrame implements Observer {
 
         Stammdaten.setBackground(new java.awt.Color(255, 255, 255));
 
-        Nachname.setText("Nachname:");
+        Nachname.setText(bundle.getString("EpaView.Nachname.text")); // NOI18N
 
-        Geburtstag.setText("Geburtstag:");
+        Geburtstag.setText(bundle.getString("EpaView.Geburtstag.text")); // NOI18N
 
-        Vorname.setText("Vorname:");
+        Vorname.setText(bundle.getString("EpaView.Vorname.text")); // NOI18N
 
-        PatId.setText("Patienten Id:");
+        PatId.setText(bundle.getString("EpaView.PatId.text")); // NOI18N
 
-        VersichertenStatu.setText("Versicherungsstatus:");
+        VersichertenStatu.setText(bundle.getString("EpaView.VersichertenStatu.text")); // NOI18N
 
-        OID.setText("OID:");
+        OID.setText(bundle.getString("EpaView.OID.text")); // NOI18N
 
-        pId.setText("jLabel1");
+        pId.setText(bundle.getString("EpaView.pId.text")); // NOI18N
 
-        oid.setText("jLabel2");
+        oid.setText(bundle.getString("EpaView.oid.text")); // NOI18N
 
-        nname.setText("jLabel3");
+        nname.setText(bundle.getString("EpaView.nname.text")); // NOI18N
 
-        vname.setText("jLabel4");
+        vname.setText(bundle.getString("EpaView.vname.text")); // NOI18N
 
-        geb.setText("jLabel5");
+        geb.setText(bundle.getString("EpaView.geb.text")); // NOI18N
 
-        vs.setText("jLabel6");
+        vs.setText(bundle.getString("EpaView.vs.text")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel2.setText("Patient");
+        jLabel2.setText(bundle.getString("EpaView.jLabel2.text")); // NOI18N
 
-        jButton1.setText("Fall anlegen");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addInstanceButton.setText(bundle.getString("EpaView.addInstanceButton.text")); // NOI18N
+        addInstanceButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addInstanceButtonActionPerformed(evt);
             }
         });
 
         jPanel4.setBackground(new java.awt.Color(102, 153, 255));
 
-        jLabel4.setText("Symptome:");
+        jLabel4.setText(bundle.getString("EpaView.jLabel4.text")); // NOI18N
 
         jPanel5.setBackground(new java.awt.Color(102, 153, 255));
 
-        jLabel5.setText("Diagnosen:");
+        jLabel5.setText(bundle.getString("EpaView.jLabel5.text")); // NOI18N
 
         jScrollPane3.setBackground(new java.awt.Color(102, 153, 255));
 
@@ -179,7 +167,7 @@ public class EpaView extends javax.swing.JFrame implements Observer {
         });
         jScrollPane3.setViewportView(diagnoseJtable);
 
-        jLabel3.setText("Massnahme:");
+        jLabel3.setText(bundle.getString("EpaView.jLabel3.text")); // NOI18N
 
         jListMasnahmen.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -328,7 +316,7 @@ public class EpaView extends javax.swing.JFrame implements Observer {
                                 .addComponent(nname)
                                 .addComponent(vname)
                                 .addComponent(geb)))
-                        .addComponent(jButton1)
+                        .addComponent(addInstanceButton)
                         .addComponent(Faelle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
@@ -369,7 +357,7 @@ public class EpaView extends javax.swing.JFrame implements Observer {
                         .addGap(18, 18, 18)
                         .addComponent(Faelle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(addInstanceButton))
                     .addGroup(StammdatenLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(Falldaten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -400,10 +388,10 @@ public class EpaView extends javax.swing.JFrame implements Observer {
         this.dispose();
     }//GEN-LAST:event_onWindowCloseHandler
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addInstanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addInstanceButtonActionPerformed
         LOGGER.info("Logger Name: " + LOGGER.getName() + "Neuer Fall für Pat id " + currentPat.getId());
         new NewInstanceView(this.currentPat).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_addInstanceButtonActionPerformed
 
     private void fealleJListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_fealleJListValueChanged
         int selIns = fealleJList.getSelectedIndex();
@@ -412,7 +400,7 @@ public class EpaView extends javax.swing.JFrame implements Observer {
         dtm = (DefaultTableModel) diagnoseJtable.getModel();
         dtm.getDataVector().removeAllElements();
         listMasModell.removeAllElements();
-        
+
         if (selIns >= 0) {
 
             LOGGER.info("Logger Name: " + LOGGER.getName() + "List value changed" + fealleJList.getSelectedIndex());
@@ -420,7 +408,7 @@ public class EpaView extends javax.swing.JFrame implements Observer {
             for (int i = 0; i < counSym; i++) {
                 stm.addRow(new Object[]{currentPat.getEhrEntry().get(selIns).getSym().get(i).getLocation(), currentPat.getEhrEntry().get(selIns).getSym().get(i).getIntensity()});
             }
-            
+
             int counDia = currentPat.getEhrEntry().get(selIns).getDia().size();
             for (int i = 0; i < counDia; i++) {
                 LOGGER.info("Logger Name: " + LOGGER.getName() + "diagnesen gezählt " + counDia);
@@ -446,10 +434,10 @@ public class EpaView extends javax.swing.JFrame implements Observer {
     private javax.swing.JPanel Stammdaten;
     private javax.swing.JLabel VersichertenStatu;
     private javax.swing.JLabel Vorname;
+    private javax.swing.JButton addInstanceButton;
     private javax.swing.JTable diagnoseJtable;
     private javax.swing.JList fealleJList;
     private javax.swing.JLabel geb;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -469,6 +457,10 @@ public class EpaView extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel vs;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Update wird aufgerufen wenn die fallakte sich ändert, 
+     * bzw ein neuer Fall angelegt wurde
+     */
     @Override
     public void update(Observable o, Object arg) {
         currentPat = PatientDaoImpl.getInstance().getPatientByID(currentPat.getId());

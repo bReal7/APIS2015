@@ -229,9 +229,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="nachnameTF">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nachnameTFActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="vornameTF">
         </Component>
@@ -257,17 +254,11 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPasswordField1ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="jPasswordField2">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value="wrong passwort"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPasswordField2ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker1">
           <Properties>
@@ -276,9 +267,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="" noResource="true"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jXDatePicker1ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="wrongPasswortLabel">
           <Properties>
@@ -298,9 +286,6 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="name" type="java.lang.String" value="gehaltTv" noResource="true"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gahaltTfActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="roleComboBox">
           <Properties>
@@ -312,9 +297,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roleComboBoxActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>

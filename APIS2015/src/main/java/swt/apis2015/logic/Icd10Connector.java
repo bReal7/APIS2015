@@ -5,7 +5,6 @@
  */
 package swt.apis2015.logic;
 
-import java.util.List;
 import java.util.Map;
 import swt.apis2015.interfaces.Icd10ConnectorI;
 import swt2.apis.source.Icd10ConnectorSource;

@@ -8,8 +8,7 @@ package swt.apis2015.interfaces;
 import java.util.Map;
 
 /**
- *
- * @author B-Real
+ *  Dies ist die Schnitstelle zur ICD10 DB
  */
 public interface Icd10ConnectorI {
     

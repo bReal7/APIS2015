@@ -18,8 +18,8 @@ import swt.apis2015.enums.InsurenceContract;
 import swt2.apis2015.dto.PatientDto;
 
 /**
- *
- * @author B-Real
+ Diese Klasse simuliert ein Kartenlesegerät es, liest eine zufällige json Datei 
+ * und mapped einen PatientenDto daraus
  */
 public class VkSimulator {
 

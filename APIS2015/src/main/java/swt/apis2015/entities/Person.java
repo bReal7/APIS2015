@@ -10,8 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
- * @author B-Real
+ * Superklasse aller Personen
  */
 @MappedSuperclass
 public abstract class Person implements Serializable {

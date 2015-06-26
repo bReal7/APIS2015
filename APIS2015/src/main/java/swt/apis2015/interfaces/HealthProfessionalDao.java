@@ -6,14 +6,16 @@
 package swt.apis2015.interfaces;
 
 import java.util.List;
-import swt.apis2015.entities.HealthProfessional;
 import swt2.apis2015.dto.HealthProfessionalDto;
 
 /**
- *
- * @author B-Real
+ * Hier sind mögliche funktionen für den Data Acces bezüglich der Klasse
+ * Healthprfessional aufgelisted implimentiert sind bisher : public void
+ * addHP(HealthProfessionalDto hp); public boolean login(String user, String
+ * password); public void logout();
  */
 public interface HealthProfessionalDao {
+
     public List<HealthProfessionalDto> getAllHealthProfessionals();
 
     public List<HealthProfessionalDto> getHealthProfessionalByName();
@@ -23,13 +25,10 @@ public interface HealthProfessionalDao {
     public void deleteHP();
 
     public void addHP(HealthProfessionalDto hp);
-    
+
     public boolean login(String user, String password);
 
     public HealthProfessionalDto getLoggedUser();
 
     public void logout();
-
-    public HealthProfessional createHpDto(HealthProfessional hp);
-    
 }

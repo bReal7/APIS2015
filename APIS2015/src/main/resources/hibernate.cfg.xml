@@ -12,8 +12,8 @@
         <property name="hibernate.query.factory_class">org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.connection.autocommit">true</property>
-        <mapping class="swt.apis2015.entities.Beteiligung"/>
-        <mapping class="swt.apis2015.entities.Document"/>
+        <!--<mapping class="swt.apis2015.entities.Beteiligung"/>-->
+        <!--<mapping class="swt.apis2015.entities.Document"/>-->
         <mapping class="swt.apis2015.entities.Instance"/>
         <mapping class="swt.apis2015.entities.HealthProfessional"/>
         <mapping class="swt.apis2015.entities.PatDiagnose"/>
@@ -22,6 +22,6 @@
         <mapping class="swt.apis2015.entities.PatSymptom"/>
         <mapping class="swt.apis2015.entities.Patient"/>
         <mapping class="swt.apis2015.entities.Person"/>
-        <mapping class="swt.apis2015.entities.Verlauf"/>
+        <!--<mapping class="swt.apis2015.entities.Verlauf"/>-->
     </session-factory>
 </hibernate-configuration>

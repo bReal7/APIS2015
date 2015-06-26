@@ -18,8 +18,7 @@ import swt.apis2015.interfaces.PatientDao;
 import swt2.apis2015.dto.PatientDto;
 
 /**
- *
- * @author B-Real
+ * Zugriff auf Patient
  */
 public class PatientDaoSource implements PatientDao {
 
@@ -37,6 +36,9 @@ public class PatientDaoSource implements PatientDao {
         return instance;
     }
 
+    /*
+     patient an seiner id finden
+     */
     @Override
     public PatientDto getPatientByID(long id) {
         System.out.println(id);
@@ -61,6 +63,9 @@ public class PatientDaoSource implements PatientDao {
         return null;
     }
 
+    /*
+     patienten bei vor oder nachnahmen finden
+     */
     @Override
     public List<PatientDto> getPatientByName(String name) {
         System.out.println(name);
@@ -85,6 +90,9 @@ public class PatientDaoSource implements PatientDao {
         }
     }
 
+    /*
+     patienten in der datenhaltung aktualisieren
+     */
     @Override
     public void updatePatient(PatientDto pat) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -95,11 +103,9 @@ public class PatientDaoSource implements PatientDao {
         LOGGER.info("Logger Name: " + LOGGER.getName() + "updated: " + pat.getSurname());
     }
 
-    @Override
-    public void deletePatient() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    /*
+     patienten persistent speichern
+     */
     @Override
     public void addPatient(PatientDto nPat) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -116,93 +122,26 @@ public class PatientDaoSource implements PatientDao {
     }
 
     /*
-     Wenn ein Patient zum ersten mal angelegt wird muss die darf die Id nicht überschrieben werden,
-     denn im Konstruktor wird die Id automatisch erzeugt
-     */ public Patient patDtoToNewEntity(PatientDto nPat) {
+    Mapping
+    */
+    public Patient patDtoToNewEntity(PatientDto nPat) {
 
         Mapper mapper = new DozerBeanMapper();
         Patient pat = mapper.map(nPat, Patient.class);
-//        pat.setEhrEntry(InstanceDaoSource.getInstance().insDtoToEntity(nPat.getEhrEntry()));
-//        pat.setBirthday(nPat.getBirthday());
-//        pat.setCity(nPat.getCity());
-//        pat.setCountry(nPat.getCountry());
-//        pat.setFirstName(nPat.getFirstname());
-//        pat.setInsuranceContract(nPat.getInsuranceContract());
-//        pat.setPostalCode(nPat.getPostalCode());
-//        pat.setStreet(nPat.getStreet());
-//        pat.setSurname(nPat.getSurname());
-//        pat.setPatientOID(nPat.getPatientOID());
         return pat;
-    } /*
-     Hier muss die id gesetzt werden
-     */
-
+    }
 
     public Patient patDtoToEntity(PatientDto nPat) {
-//        Patient pat = patDtoToNewEntity(nPat);
-//        pat.setId(nPat.getId());
         Mapper mapper = new DozerBeanMapper();
         Patient pat = mapper.map(nPat, Patient.class);
         return pat;
     }
 
     public PatientDto entityToPatDto(Patient pat) {
-//        PatientDto patDto = new PatientDto();
-//        LOGGER.info("Logger Name: " + LOGGER.getName() + "Anzahl der aus DB geladenen Fälle zu deisem Patienten = " + pat.getEhrEntry().size());
-//        patDto.setEhrEntry(PatPhenomenDaoSource.getInstance().entityEhrEntryToEhrEntryDto(pat.getEhrEntry(), patDto));
-//        LOGGER.info("Logger Name: " + LOGGER.getName() + "Anzahl der Fälle nach konvertierung zu diesem Patienten ent->dto = " + patDto.getEhrEntry().size());
-//        patDto.setId(pat.getId());
-//        patDto.setBirthday(pat.getBirthday());
-//        patDto.setCity(pat.getCity());
-//        patDto.setCountry(pat.getCountry());
-//        patDto.setFirstname(pat.getFirstName());
-//        patDto.setInsuranceContract(pat.getInsuranceContract());
-//        patDto.setPostalCode(pat.getPostalCode());
-//        patDto.setStreet(pat.getStreet());
-//        patDto.setSurname(pat.getSurname());
-//        patDto.setPatientOID(pat.getPatientOID());
-
         Mapper mapper = new DozerBeanMapper();
         PatientDto patDto = mapper.map(pat, PatientDto.class);
-
         return patDto;
     }
-
-//    public PatientDto entityToPatDtoExceptEhr(Patient pat) {
-//        PatientDto patDto = new PatientDto();
-//        LOGGER.info("Logger Name: " + LOGGER.getName() + "Anzahl der aus DB geladenen Fälle zu deisem Patienten = " + pat.getEhrEntry().size());
-////        patDto.setEhrEntry(PatPhenomenDaoSource.getInstance().entityEhrEntryToEhrEntryDto(pat.getEhrEntry()));
-//        LOGGER.info("Logger Name: " + LOGGER.getName() + "Anzahl der Fälle nach konvertierung zu diesem Patienten ent->dto = " + patDto.getEhrEntry().size());
-//        patDto.setId(pat.getId());
-//        patDto.setBirthday(pat.getBirthday());
-//        patDto.setCity(pat.getCity());
-//        patDto.setCountry(pat.getCountry());
-//        patDto.setFirstname(pat.getFirstName());
-//        patDto.setInsuranceContract(pat.getInsuranceContract());
-//        patDto.setPostalCode(pat.getPostalCode());
-//        patDto.setStreet(pat.getStreet());
-//        patDto.setSurname(pat.getSurname());
-//        patDto.setPatientOID(pat.getPatientOID());
-//        return patDto;
-//    }
-
-//    public Patient PatDtoentityToExceptEhr(PatientDto patientDto) {
-//        Patient pat = new Patient();
-//        LOGGER.info("Logger Name: " + LOGGER.getName() + "Anzahl der aus DB geladenen Fälle zu deisem Patienten = " + patientDto.getEhrEntry().size());
-////        patDto.setEhrEntry(PatPhenomenDaoSource.getInstance().entityEhrEntryToEhrEntryDto(pat.getEhrEntry()));
-//        LOGGER.info("Logger Name: " + LOGGER.getName() + "Anzahl der Fälle nach konvertierung zu diesem Patienten ent->dto = " + pat.getEhrEntry().size());
-//        pat.setId(patientDto.getId());
-//        pat.setBirthday(patientDto.getBirthday());
-//        pat.setCity(patientDto.getCity());
-//        pat.setCountry(patientDto.getCountry());
-//        pat.setFirstName(patientDto.getFirstname());
-//        pat.setInsuranceContract(patientDto.getInsuranceContract());
-//        pat.setPostalCode(patientDto.getPostalCode());
-//        pat.setStreet(patientDto.getStreet());
-//        pat.setSurname(patientDto.getSurname());
-//        pat.setPatientOID(patientDto.getPatientOID());
-//        return pat;
-//    }
 
     Patient getPatienById(long id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

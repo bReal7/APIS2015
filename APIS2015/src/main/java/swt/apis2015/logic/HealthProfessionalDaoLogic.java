@@ -6,7 +6,6 @@
 package swt.apis2015.logic;
 
 import java.util.List;
-import swt.apis2015.entities.HealthProfessional;
 import swt.apis2015.interfaces.HealthProfessionalDao;
 import swt2.apis.source.HealthProfessionalDaoSource;
 import swt2.apis2015.dto.HealthProfessionalDto;
@@ -67,11 +66,6 @@ public class HealthProfessionalDaoLogic implements HealthProfessionalDao {
     @Override
     public void logout() {
         HealthProfessionalDaoSource.getInstance().logout();
-    }
-
-    @Override
-    public HealthProfessional createHpDto(HealthProfessional hp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

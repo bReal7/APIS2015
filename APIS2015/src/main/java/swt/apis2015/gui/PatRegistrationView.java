@@ -17,8 +17,7 @@ import swt.apis2015.logic.WaitListHandler;
 import swt2.apis2015.dto.PatientDto;
 
 /**
- *
- * @author B-Real
+ * Dieses Fenster dient der Patientenaufnahme
  */
 public class PatRegistrationView extends javax.swing.JFrame {
 
@@ -42,13 +41,13 @@ public class PatRegistrationView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        datenLadenButton = new javax.swing.JButton();
         Nachname = new javax.swing.JLabel();
         Geburtstag = new javax.swing.JLabel();
         Vorname = new javax.swing.JLabel();
         PatId = new javax.swing.JLabel();
         VersichertenStatu = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        fertigButton = new javax.swing.JButton();
         OID = new javax.swing.JLabel();
         pId = new javax.swing.JLabel();
         oid = new javax.swing.JLabel();
@@ -75,11 +74,11 @@ public class PatRegistrationView extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
-        jButton1.setBackground(new java.awt.Color(102, 102, 255));
-        jButton1.setText("Versichertendaten laden");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        datenLadenButton.setBackground(new java.awt.Color(102, 102, 255));
+        datenLadenButton.setText("Versichertendaten laden");
+        datenLadenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                datenLadenButtonActionPerformed(evt);
             }
         });
 
@@ -93,11 +92,11 @@ public class PatRegistrationView extends javax.swing.JFrame {
 
         VersichertenStatu.setText("Versicherungsstatus:");
 
-        jButton2.setBackground(new java.awt.Color(102, 102, 255));
-        jButton2.setText("Fertig");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        fertigButton.setBackground(new java.awt.Color(102, 102, 255));
+        fertigButton.setText("Fertig");
+        fertigButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                fertigButtonActionPerformed(evt);
             }
         });
 
@@ -168,7 +167,7 @@ public class PatRegistrationView extends javax.swing.JFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                                .addComponent(jButton2)
+                                .addComponent(fertigButton)
                                 .addGap(10, 10, 10))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,7 +183,7 @@ public class PatRegistrationView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jButton1)
+                    .addComponent(datenLadenButton)
                     .addContainerGap(125, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -233,12 +232,12 @@ public class PatRegistrationView extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(land))
                 .addGap(21, 21, 21)
-                .addComponent(jButton2)
+                .addComponent(fertigButton)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jButton1)
+                    .addComponent(datenLadenButton)
                     .addContainerGap(301, Short.MAX_VALUE)))
         );
 
@@ -257,7 +256,12 @@ public class PatRegistrationView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    /**
+     * daten werden vom Kartenlesegeät geladen (Hier: Simulator)
+     *
+     * @param evt
+     */
+    private void datenLadenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datenLadenButtonActionPerformed
         try {
             tmp = VkSimulator.getInstance().ladeKarte();
             oid.setText(String.valueOf(tmp.getPatientOID()));
@@ -270,25 +274,28 @@ public class PatRegistrationView extends javax.swing.JFrame {
             plz.setText(tmp.getPostalCode());
             strasse.setText(tmp.getStreet());
             land.setText(tmp.getCountry());
-
-        } catch (IOException ex) {
-            Logger.getLogger(PatRegistrationView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(PatRegistrationView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (java.text.ParseException ex) {
             Logger.getLogger(PatRegistrationView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PatRegistrationView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_datenLadenButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+    /**
+     * Hier wird der Patient auf die Warteliste gesetzt
+     * Falls es der Patient zum ersten mal die Praxis besucht wird er in die DB eingetragen 
+     * @param evt 
+     */
+    private void fertigButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fertigButtonActionPerformed
         if (!PatientDaoImpl.getInstance().isAlreadyRegistered(tmp.getPatientOID())) {
             PatientDaoImpl.getInstance().addPatient(tmp);
         }
         this.setVisible(false);
         this.dispose();
         WaitListHandler.getInstance().waitListPatient(PatientDaoImpl.getInstance().findPatientByOid(tmp.getPatientOID()));
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_fertigButtonActionPerformed
 
     private void onCloseHandler(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onCloseHandler
         this.setVisible(false);
@@ -352,9 +359,9 @@ public class PatRegistrationView extends javax.swing.JFrame {
     private javax.swing.JLabel PatId;
     private javax.swing.JLabel VersichertenStatu;
     private javax.swing.JLabel Vorname;
+    private javax.swing.JButton datenLadenButton;
+    private javax.swing.JButton fertigButton;
     private javax.swing.JLabel geb;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

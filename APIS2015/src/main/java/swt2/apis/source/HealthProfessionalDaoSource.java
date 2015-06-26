@@ -17,8 +17,8 @@ import swt.apis2015.interfaces.HealthProfessionalDao;
 import swt2.apis2015.dto.HealthProfessionalDto;
 
 /**
+ * Diese Klasse implementiert den DB zugriff auf HP
  *
- * @author B-Real
  */
 public class HealthProfessionalDaoSource implements HealthProfessionalDao {
 
@@ -36,16 +36,6 @@ public class HealthProfessionalDaoSource implements HealthProfessionalDao {
     }
 
     @Override
-    public void updateHP() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void deleteHP() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public void addHP(HealthProfessionalDto hp) {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -58,43 +48,10 @@ public class HealthProfessionalDaoSource implements HealthProfessionalDao {
         }
     }
 
-    private HealthProfessional hpDtoToEntity(HealthProfessionalDto hp) {
-//        HealthProfessional nUser = new HealthProfessional();
-        Mapper mapper = new DozerBeanMapper();
-        HealthProfessional nUser = mapper.map(hp, HealthProfessional.class);
-//        nUser.setId(hp.getId());
-//        nUser.setBirthday(hp.getBirthday());
-//        nUser.setCity(hp.getCity());
-//        nUser.setCountry(hp.getCountry());
-//        nUser.setFirstName(hp.getFirstName());
-//        nUser.setGehalt(hp.getGehalt());
-//        nUser.setPassword(hp.getPassword());
-//        nUser.setPostalCode(hp.getPostalCode());
-//        nUser.setStreet(hp.getStreet());
-//        nUser.setSurname(hp.getSurname());
-//        nUser.setRole(hp.getRole());
-        return nUser;
-    }
-
-    private HealthProfessionalDto hpEntityToDto(HealthProfessional hp) {
-//        HealthProfessionalDto nUser = new HealthProfessionalDto();
-        Mapper mapper = new DozerBeanMapper();
-        HealthProfessionalDto nUser = mapper.map(hp, HealthProfessionalDto.class);
-
-//        nUser.setId(hp.getId());
-//        nUser.setBirthday(hp.getBirthday());
-//        nUser.setCity(hp.getCity());
-//        nUser.setCountry(hp.getCountry());
-//        nUser.setFirstName(hp.getFirstName());
-//        nUser.setGehalt(hp.getGehalt());
-//        nUser.setPassword(hp.getPassword());
-//        nUser.setPostalCode(hp.getPostalCode());
-//        nUser.setStreet(hp.getStreet());
-//        nUser.setSurname(hp.getSurname());
-//        nUser.setRole(hp.getRole());
-        return nUser;
-    }
-
+    /*
+     Hier wird der User mit Hilfe des usernamen und password identifieziert
+     und zu this.user gesetzt 
+     */
     @Override
     public boolean login(String user, String password) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -110,16 +67,18 @@ public class HealthProfessionalDaoSource implements HealthProfessionalDao {
         }
     }
 
+    /*
+     Hier wird die Session geschlossen und das Programm beendet
+     */
     @Override
     public void logout() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.close();
-        System.exit(0);
     }
-
+    
     @Override
-    public HealthProfessional createHpDto(HealthProfessional hp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public HealthProfessionalDto getLoggedUser() {
+        return user;
     }
 
     @Override
@@ -133,7 +92,24 @@ public class HealthProfessionalDaoSource implements HealthProfessionalDao {
     }
 
     @Override
-    public HealthProfessionalDto getLoggedUser() {
-        return user;
+    public void updateHP() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void deleteHP() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    private HealthProfessional hpDtoToEntity(HealthProfessionalDto hp) {
+        Mapper mapper = new DozerBeanMapper();
+        HealthProfessional nUser = mapper.map(hp, HealthProfessional.class);
+        return nUser;
+    }
+
+    private HealthProfessionalDto hpEntityToDto(HealthProfessional hp) {
+        Mapper mapper = new DozerBeanMapper();
+        HealthProfessionalDto nUser = mapper.map(hp, HealthProfessionalDto.class);
+        return nUser;
     }
 }

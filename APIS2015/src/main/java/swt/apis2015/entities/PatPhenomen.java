@@ -8,11 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
- *
- * @author B-Real
+ * Die Superklasse eines jeden Fallakteneintrags
  */
 @MappedSuperclass
 public abstract class PatPhenomen implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -67,8 +67,6 @@ public abstract class PatPhenomen implements Serializable {
 //    public void setPatient(Patient patient) {
 //        this.patient = patient;
 //    }
-    
-
 
     @Override
     public int hashCode() {

@@ -5,16 +5,14 @@
  */
 package swt.apis2015.gui;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import swt.apis2015.logic.PatientDaoImpl;
 import swt2.apis2015.dto.PatientDto;
 
 /**
- *
- * @author Administrator
+ * Dieses Fenster dient zum suchen von patientn 
+ * 
  */
 public class PatientSuchenView extends javax.swing.JFrame {
 
@@ -103,7 +101,7 @@ public class PatientSuchenView extends javax.swing.JFrame {
                     .addComponent(NachnameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(suchenButton)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));

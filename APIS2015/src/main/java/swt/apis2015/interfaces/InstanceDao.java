@@ -6,14 +6,9 @@
 package swt.apis2015.interfaces;
 
 import swt2.apis2015.dto.InstanceDto;
-import swt2.apis2015.dto.PatDiagnoseDto;
-import swt2.apis2015.dto.PatMassnahmeDto;
-import swt2.apis2015.dto.PatSymptomDto;
-import swt2.apis2015.dto.PatientDto;
 
 /**
- *
- * @author B-Real
+ * Data Acces für Fälle
  */
 public interface InstanceDao {
     

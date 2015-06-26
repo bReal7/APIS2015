@@ -14,7 +14,7 @@ import swt.apis2015.logic.HealthProfessionalDaoLogic;
 public class RegisterView extends javax.swing.JFrame {
 
     /**
-     * Creates new form RegisterView
+     * Login und neue HPs registrieren
      */
     public RegisterView() {
         initComponents();
@@ -80,12 +80,6 @@ public class RegisterView extends javax.swing.JFrame {
         usernameTf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameTfActionPerformed(evt);
-            }
-        });
-
-        passwordTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordTfActionPerformed(evt);
             }
         });
 
@@ -191,6 +185,11 @@ public class RegisterView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameTfActionPerformed
 
+    /**
+     * Hier wird das Passwort auf korrektheit überprüft
+     * 
+     * @param evt 
+     */
     private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
         boolean isWorking = HealthProfessionalDaoLogic.getInstance().login(usernameTf.getText(), String.valueOf(passwordTf.getPassword()));
         againL.setVisible(!isWorking);
@@ -202,16 +201,16 @@ public class RegisterView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_okBtnActionPerformed
 
+    /*
+    Hier drücken um neue hps zu registrieren
+    
+    */
     private void newUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUserBtnActionPerformed
         this.setVisible(false);
         this.dispose();
         SigningView sw = new SigningView();
         sw.setVisible(true);
     }//GEN-LAST:event_newUserBtnActionPerformed
-
-    private void passwordTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordTfActionPerformed
 
         /**
      * @param args the command line arguments

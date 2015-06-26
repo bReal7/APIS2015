@@ -4,8 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 
 /**
- *
- * @author B-Real
+ *  text ist ein Maßnahme Text wie zum beispiel 3*Ohysiotherapie 45 Minuten
  */
 @Entity
 public class PatMassnahme extends PatPhenomen implements Serializable {

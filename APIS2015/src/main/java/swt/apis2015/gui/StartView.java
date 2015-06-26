@@ -6,11 +6,12 @@
 package swt.apis2015.gui;
 
 import swt.apis2015.logic.HealthProfessionalDaoLogic;
-import swt2.apis.source.HealthProfessionalDaoSource;
 
 /**
+ * Dies ist das Hauptfenster der App, wenn es geschlossen wird wird die App
+ * beendet
+ * 
  *
- * @author B-Real
  */
 public class StartView extends javax.swing.JFrame {
 
@@ -29,9 +30,8 @@ public class StartView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        patAnmeldenBtn = new javax.swing.JButton();
+        warteliste = new javax.swing.JButton();
         patSuchenBtn = new javax.swing.JButton();
-        epaArchBtn = new javax.swing.JButton();
         nameL = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -48,10 +48,10 @@ public class StartView extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
-        patAnmeldenBtn.setText("Warteliste");
-        patAnmeldenBtn.addActionListener(new java.awt.event.ActionListener() {
+        warteliste.setText("Warteliste");
+        warteliste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                patAnmeldenBtnActionPerformed(evt);
+                wartelisteActionPerformed(evt);
             }
         });
 
@@ -62,13 +62,6 @@ public class StartView extends javax.swing.JFrame {
             }
         });
 
-        epaArchBtn.setText("Epa Archiv");
-        epaArchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                epaArchBtnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -76,20 +69,17 @@ public class StartView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(patAnmeldenBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(patSuchenBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(epaArchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(warteliste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(patSuchenBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(patAnmeldenBtn)
+                .addComponent(warteliste)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(patSuchenBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(epaArchBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -117,7 +107,7 @@ public class StartView extends javax.swing.JFrame {
                 .addComponent(nameL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -131,24 +121,19 @@ public class StartView extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setSize(new java.awt.Dimension(151, 209));
+        setSize(new java.awt.Dimension(151, 165));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void patAnmeldenBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patAnmeldenBtnActionPerformed
+    private void wartelisteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wartelisteActionPerformed
         WaitListView wlv = new WaitListView();
         wlv.setVisible(true);
-
-    }//GEN-LAST:event_patAnmeldenBtnActionPerformed
+    }//GEN-LAST:event_wartelisteActionPerformed
 
     private void patSuchenBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patSuchenBtnActionPerformed
         PatientSuchenView psv = new PatientSuchenView();
         psv.setVisible(true);
     }//GEN-LAST:event_patSuchenBtnActionPerformed
-
-    private void epaArchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_epaArchBtnActionPerformed
-
-    }//GEN-LAST:event_epaArchBtnActionPerformed
 
     private void onCloseHandler(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onCloseHandler
         this.setVisible(false);
@@ -195,12 +180,11 @@ public class StartView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton epaArchBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel nameL;
-    private javax.swing.JButton patAnmeldenBtn;
     private javax.swing.JButton patSuchenBtn;
+    private javax.swing.JButton warteliste;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,18 +3,17 @@ package swt.apis2015.entities;
 import javax.persistence.Entity;
 
 /**
- *
- * @author B-Real
+ * Zu Symptomen könnne intensität und lokation aufgeschrieben werden
  */
-
 @Entity
-public class PatSymptom extends PatPhenomen{
+public class PatSymptom extends PatPhenomen {
+
     private String intensity;
     private String location;
 
     public PatSymptom() {
     }
-    
+
     public String getIntensity() {
         return intensity;
     }
@@ -31,6 +30,4 @@ public class PatSymptom extends PatPhenomen{
         this.location = location;
     }
 
-    
-    
 }

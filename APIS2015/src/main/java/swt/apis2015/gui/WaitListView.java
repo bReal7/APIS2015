@@ -13,16 +13,19 @@ import swt.apis2015.logic.WaitListHandler;
 import swt2.apis2015.dto.PatientDto;
 
 /**
- *
- * @author B-Real
+ * Dieses Fenster zeigt die Warteliste an
  */
 public class WaitListView extends javax.swing.JFrame implements Observer {
-    
+
     DefaultTableModel dtm;
     WaitListHandler wLh;
 
     /**
-     * Creates new form WaitListView
+     * Creates new form WaitListView Hier wird die Warteliste aus der logik
+     * Schicht geladen die Tabelle bisherige Tabelle gelöscht die Warteliste
+     * gesetzt der Warteliste ein Observer hinzugefügt, sich selbst als
+     * beobachter
+     *
      */
     public WaitListView() {
         initComponents();
@@ -30,7 +33,7 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         wLh = WaitListHandler.getInstance();
         List<PatientDto> pl = wLh.getWaitList();
         clearTable();
-        
+
         if (pl.size() > 0) {
             int i = 0;
             for (PatientDto x : pl) {
@@ -53,8 +56,8 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         resultT = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        addPatButton = new javax.swing.JButton();
+        nextPatButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -102,26 +105,21 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
                 return types [columnIndex];
             }
         });
-        resultT.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                resultTMouseClicked(evt);
-            }
-        });
         jScrollPane2.setViewportView(resultT);
 
-        jButton1.setBackground(new java.awt.Color(102, 102, 255));
-        jButton1.setText("Patienten Aufehmen");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addPatButton.setBackground(new java.awt.Color(102, 102, 255));
+        addPatButton.setText("Patienten Aufehmen");
+        addPatButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addPatButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(102, 102, 255));
-        jButton2.setText("Nächster Patient");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        nextPatButton.setBackground(new java.awt.Color(102, 102, 255));
+        nextPatButton.setText("Nächster Patient");
+        nextPatButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                nextPatButtonActionPerformed(evt);
             }
         });
 
@@ -132,19 +130,19 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(addPatButton)
                 .addGap(29, 29, 29)
-                .addComponent(jButton2)
+                .addComponent(nextPatButton)
                 .addGap(136, 136, 136))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(addPatButton)
+                    .addComponent(nextPatButton))
                 .addGap(30, 30, 30))
         );
 
@@ -162,22 +160,25 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    /*
+     Hier wird ein fenster zusätzlich geöffnet in dem der Patient erfasst wird
+     */
+    private void addPatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPatButtonActionPerformed
         PatRegistrationView prv = new PatRegistrationView();
-        prv.setVisible(true);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        prv.setVisible(true);
+    }//GEN-LAST:event_addPatButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    /*
+     Hier kann der nächste Patient aufgerufen werden 
+    wlh.next löscht den nächsten Patienten aus der Warteliste;
+     */
+    private void nextPatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextPatButtonActionPerformed
         this.dispose();
         this.setVisible(false);
         EpaView ew;
         ew = new EpaView(wLh.next().getId());
         ew.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void resultTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultTMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_resultTMouseClicked
+    }//GEN-LAST:event_nextPatButtonActionPerformed
 
     private void onCloseHandler(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onCloseHandler
         this.setVisible(false);
@@ -185,20 +186,23 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_onCloseHandler
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton addPatButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton nextPatButton;
     private javax.swing.JTable resultT;
     // End of variables declaration//GEN-END:variables
 
+    /*
+    Hier wird die Tabelle neu gesetzt wenn in der logikschicht sich etwas an der Warteliste ändert  
+    */
     @Override
     public void update(Observable o, Object arg) {
         System.out.println("askdnsdfklön");
         List<PatientDto> pl = wLh.getWaitList();
-        
+
         clearTable();
-        
+
         if (pl.size() > 0) {
             int i = 0;
             for (PatientDto x : pl) {
@@ -206,7 +210,7 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
             }
         }
     }
-    
+
     private void clearTable() {
         if (dtm.getRowCount() > 0) {
             for (int i = dtm.getRowCount() - 1; i > -1; i--) {

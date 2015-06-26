@@ -1,6 +1,10 @@
 package swt.apis2015.reveng;
 // Generated 16.06.2015 20:49:58 by Hibernate Tools 4.3.1
+/*
+Generierte Klasse zur ICD10 DB, darf nicht ins entity Paket!
+Sonst wird auch die APIS2015 DB im bottom up Prinzip(ReverseEngeneering) erstellt
 
+*/
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

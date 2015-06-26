@@ -9,8 +9,7 @@ import java.util.List;
 import swt2.apis2015.dto.PatientDto;
 
 /**
- *
- * @author B-Real
+ * Data Acces für Patient
  */
 public interface PatientDao {
 
@@ -21,8 +20,6 @@ public interface PatientDao {
     public PatientDto findPatientByOid(int oid);
     
     public void updatePatient(PatientDto pat);
-
-    public void deletePatient();
 
     public void addPatient(PatientDto nPat);
     

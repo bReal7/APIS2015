@@ -6,10 +6,10 @@
 package swt.apis2015.enums;
 
 /**
- *
- * @author Administrator
+ * Mögliche Krankenkassenanbieter
  */
 public enum InsurenceContract {
+
     AOK,
     Barmer,
     Techniker,

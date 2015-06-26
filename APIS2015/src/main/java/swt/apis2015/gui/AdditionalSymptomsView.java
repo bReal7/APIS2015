@@ -12,16 +12,14 @@ import java.util.logging.Logger;
 import swt2.apis2015.dto.PatSymptomDto;
 
 /**
+ * Dieses Frame wird angezeigt wenn zu einem Fall mehr als ein Symptom
+ * gespeichert werden soll
  *
- * @author B-Real
  */
 public class AdditionalSymptomsView extends javax.swing.JFrame {
 
     private static final Logger LOGGER = Logger.getLogger(AdditionalSymptomsView.class.getName());
 
-    /**
-     * Creates new form AdditionalSymptomsView
-     */
     private NewInstanceView nIv;
 
     public AdditionalSymptomsView(NewInstanceView nIv) {
@@ -64,21 +62,22 @@ public class AdditionalSymptomsView extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Zusätzliche Symptome");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("swt/apis2015/internationalisation/Bundle"); // NOI18N
+        jLabel3.setText(bundle.getString("AdditionalSymptomsView.jLabel3.text")); // NOI18N
 
-        jLabel4.setText("Lokation:");
+        jLabel4.setText(bundle.getString("AdditionalSymptomsView.jLabel4.text")); // NOI18N
 
-        jLabel5.setText("Intesität:");
+        jLabel5.setText(bundle.getString("AdditionalSymptomsView.jLabel5.text")); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Zusätzliche Symptome");
+        jLabel6.setText(bundle.getString("AdditionalSymptomsView.jLabel6.text")); // NOI18N
 
-        jLabel7.setText("Lokation:");
+        jLabel7.setText(bundle.getString("AdditionalSymptomsView.jLabel7.text")); // NOI18N
 
-        jLabel8.setText("Intesität:");
+        jLabel8.setText(bundle.getString("AdditionalSymptomsView.jLabel8.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -155,7 +154,7 @@ public class AdditionalSymptomsView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Fertig");
+        jButton1.setText(bundle.getString("AdditionalSymptomsView.jButton1.text")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -199,6 +198,11 @@ public class AdditionalSymptomsView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Hier werden zunächst die neu eingetragenen Symptome erfasst
+     * zur liste des aufrufenden fensters nIv ergänzt 
+     * und der tooltip gesetzt
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         List<PatSymptomDto> symLis = initSymptoms();
         for (PatSymptomDto x : symLis) {
@@ -215,6 +219,10 @@ public class AdditionalSymptomsView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
+    /**
+     * Hier werden die eingaben aus den GUI Elementen erfasst und als Symptome
+     * initialiesiert 
+     */
     private List<PatSymptomDto> initSymptoms() {
         List<PatSymptomDto> res = new ArrayList<>();
         if (!lokationjTF.getText().equals("") && !intensityjTF.getText().equals("")) {

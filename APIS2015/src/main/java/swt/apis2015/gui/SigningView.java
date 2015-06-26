@@ -10,8 +10,8 @@ import swt.apis2015.logic.HealthProfessionalDaoLogic;
 import swt2.apis2015.dto.HealthProfessionalDto;
 
 /**
- *
- * @author B-Real
+ * Hier werden alle nötigen angaben zum HP erfasst um ihm im System
+ * abzuspeichern
  */
 public class SigningView extends javax.swing.JFrame {
 
@@ -88,37 +88,16 @@ public class SigningView extends javax.swing.JFrame {
 
         landJL.setText("Land:");
 
-        nachnameTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nachnameTFActionPerformed(evt);
-            }
-        });
-
         passwortJL.setText("Passwort");
 
         repeatPasswortJL.setText("Repeat passwort");
 
         jPasswordField1.setToolTipText("");
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
-            }
-        });
 
         jPasswordField2.setToolTipText("wrong passwort");
-        jPasswordField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField2ActionPerformed(evt);
-            }
-        });
 
         jXDatePicker1.setLinkPanel(null);
         jXDatePicker1.setName(""); // NOI18N
-        jXDatePicker1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXDatePicker1ActionPerformed(evt);
-            }
-        });
 
         wrongPasswortLabel.setForeground(new java.awt.Color(204, 0, 0));
         wrongPasswortLabel.setText("wrong passwort");
@@ -127,18 +106,8 @@ public class SigningView extends javax.swing.JFrame {
 
         gahaltTf.setToolTipText("");
         gahaltTf.setName("gehaltTv"); // NOI18N
-        gahaltTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gahaltTfActionPerformed(evt);
-            }
-        });
 
         roleComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Doctor", "Nurse", " " }));
-        roleComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roleComboBoxActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Rolle:");
 
@@ -278,52 +247,30 @@ public class SigningView extends javax.swing.JFrame {
         hp.setGehalt(Integer.parseInt(gahaltTf.getText()));
         if (roleComboBox.getSelectedItem() == "Doctor") {
             hp.setRole(HPRole.DOCTOR);
-            
+
         } else {
             hp.setRole(HPRole.NURSE);
         }
         return hp;
     }
 
+    /*
+    Hier werden alle eingegebenen Daten erfasst, falls die Passwörter nicht übereinstimmen
+    wird der HP nicht registriert
+    */
+    
     private void weiterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weiterBtnActionPerformed
         if (jPasswordField1.getText().equals(jPasswordField2.getText())) {
             HealthProfessionalDaoLogic.getInstance().addHP(initialHp());
             this.setVisible(false);
             this.dispose();
             System.exit(0);
-
-//            EpaView ew = new EpaView();
-//            ew.setVisible(true);
         } else {
             wrongPasswortLabel.setVisible(true);
         }
-        
+
 
     }//GEN-LAST:event_weiterBtnActionPerformed
-
-    private void nachnameTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nachnameTFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nachnameTFActionPerformed
-
-    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jXDatePicker1ActionPerformed
-
-    private void jPasswordField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField2ActionPerformed
-
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
-
-    private void gahaltTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gahaltTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_gahaltTfActionPerformed
-
-    private void roleComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_roleComboBoxActionPerformed
 
     /**
      * @param args the command line arguments

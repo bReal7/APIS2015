@@ -6,8 +6,7 @@
 package swt.apis2015.enums;
 
 /**
- *
- * @author Administrator
+ *  Mögliche Rollen eines Healthprofessionals
  */
 public enum HPRole {
     DOCTOR,

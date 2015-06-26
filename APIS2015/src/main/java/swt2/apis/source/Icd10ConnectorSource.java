@@ -14,8 +14,7 @@ import org.hibernate.Session;
 import swt.apis2015.interfaces.Icd10ConnectorI;
 
 /**
- *
- * @author B-Real
+ *Diese Klasse greift auf die ICD10 DB zu 
  */
 public class Icd10ConnectorSource implements Icd10ConnectorI {
 
@@ -31,6 +30,10 @@ public class Icd10ConnectorSource implements Icd10ConnectorI {
         return instance;
     }
 
+    /*
+    hier wird ein icd code gesucht, der einen 
+    bestimmten String in der Beschriebung hat
+    */
     @Override
     public Map<String, String> findIcdByName(String name) {
         System.out.println(name);
