@@ -64,7 +64,8 @@ public class RegisterView extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("APIS2015");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("swt/apis2015/internationalisation/RegisterView"); // NOI18N
+        setTitle(bundle.getString("RegisterView.title")); // NOI18N
         setBackground(new java.awt.Color(255, 255, 255));
         setName("StartFrame"); // NOI18N
 
@@ -73,9 +74,9 @@ public class RegisterView extends javax.swing.JFrame {
 
         loginPanel.setBackground(new java.awt.Color(102, 153, 255));
 
-        jLabel2.setText("Username");
+        jLabel2.setText(bundle.getString("RegisterView.jLabel2.text")); // NOI18N
 
-        jLabel3.setText("Passwort");
+        jLabel3.setText(bundle.getString("RegisterView.jLabel3.text")); // NOI18N
 
         usernameTf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,21 +84,21 @@ public class RegisterView extends javax.swing.JFrame {
             }
         });
 
-        okBtn.setText("OK");
+        okBtn.setText(bundle.getString("RegisterView.okBtn.text")); // NOI18N
         okBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okBtnActionPerformed(evt);
             }
         });
 
-        newUserBtn.setText("New user");
+        newUserBtn.setText(bundle.getString("RegisterView.newUserBtn.text")); // NOI18N
         newUserBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newUserBtnActionPerformed(evt);
             }
         });
 
-        againL.setText("Please try again");
+        againL.setText(bundle.getString("RegisterView.againL.text")); // NOI18N
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);

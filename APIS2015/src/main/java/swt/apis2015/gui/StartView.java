@@ -44,18 +44,19 @@ public class StartView extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(102, 153, 255));
 
         jLabel1.setBackground(new java.awt.Color(102, 102, 255));
-        jLabel1.setText("Angemeldet als : ");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("swt/apis2015/internationalisation/StartView"); // NOI18N
+        jLabel1.setText(bundle.getString("StartView.jLabel1.text")); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
-        warteliste.setText("Warteliste");
+        warteliste.setText(bundle.getString("StartView.warteliste.text")); // NOI18N
         warteliste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wartelisteActionPerformed(evt);
             }
         });
 
-        patSuchenBtn.setText("Patient suchen");
+        patSuchenBtn.setText(bundle.getString("StartView.patSuchenBtn.text")); // NOI18N
         patSuchenBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 patSuchenBtnActionPerformed(evt);
@@ -84,7 +85,7 @@ public class StartView extends javax.swing.JFrame {
         );
 
         nameL.setBackground(new java.awt.Color(102, 102, 255));
-        nameL.setText("name");
+        nameL.setText(bundle.getString("StartView.nameL.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

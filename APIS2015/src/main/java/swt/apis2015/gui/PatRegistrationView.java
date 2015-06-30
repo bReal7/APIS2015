@@ -75,62 +75,63 @@ public class PatRegistrationView extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
         datenLadenButton.setBackground(new java.awt.Color(102, 102, 255));
-        datenLadenButton.setText("Versichertendaten laden");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("swt/apis2015/internationalisation/PatRegistrationView"); // NOI18N
+        datenLadenButton.setText(bundle.getString("PatRegistrationView.datenLadenButton.text")); // NOI18N
         datenLadenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 datenLadenButtonActionPerformed(evt);
             }
         });
 
-        Nachname.setText("Nachname:");
+        Nachname.setText(bundle.getString("PatRegistrationView.Nachname.text")); // NOI18N
 
-        Geburtstag.setText("Geburtstag:");
+        Geburtstag.setText(bundle.getString("PatRegistrationView.Geburtstag.text")); // NOI18N
 
-        Vorname.setText("Vorname:");
+        Vorname.setText(bundle.getString("PatRegistrationView.Vorname.text")); // NOI18N
 
-        PatId.setText("Patienten Id:");
+        PatId.setText(bundle.getString("PatRegistrationView.PatId.text")); // NOI18N
 
-        VersichertenStatu.setText("Versicherungsstatus:");
+        VersichertenStatu.setText(bundle.getString("PatRegistrationView.VersichertenStatu.text")); // NOI18N
 
         fertigButton.setBackground(new java.awt.Color(102, 102, 255));
-        fertigButton.setText("Fertig");
+        fertigButton.setText(bundle.getString("PatRegistrationView.fertigButton.text")); // NOI18N
         fertigButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fertigButtonActionPerformed(evt);
             }
         });
 
-        OID.setText("OID:");
+        OID.setText(bundle.getString("PatRegistrationView.OID.text")); // NOI18N
 
-        pId.setText("jLabel1");
+        pId.setText(bundle.getString("PatRegistrationView.pId.text")); // NOI18N
 
-        oid.setText("jLabel2");
+        oid.setText(bundle.getString("PatRegistrationView.oid.text")); // NOI18N
 
-        nname.setText("jLabel3");
+        nname.setText(bundle.getString("PatRegistrationView.nname.text")); // NOI18N
 
-        vname.setText("jLabel4");
+        vname.setText(bundle.getString("PatRegistrationView.vname.text")); // NOI18N
 
-        geb.setText("jLabel5");
+        geb.setText(bundle.getString("PatRegistrationView.geb.text")); // NOI18N
 
-        vs.setText("jLabel6");
+        vs.setText(bundle.getString("PatRegistrationView.vs.text")); // NOI18N
 
-        jLabel1.setText("Adresse");
+        jLabel1.setText(bundle.getString("PatRegistrationView.jLabel1.text")); // NOI18N
 
-        jLabel2.setText("Ort:");
+        jLabel2.setText(bundle.getString("PatRegistrationView.jLabel2.text")); // NOI18N
 
-        jLabel3.setText("PLZ:");
+        jLabel3.setText(bundle.getString("PatRegistrationView.jLabel3.text")); // NOI18N
 
-        jLabel4.setText("Strasse:");
+        jLabel4.setText(bundle.getString("PatRegistrationView.jLabel4.text")); // NOI18N
 
-        jLabel5.setText("Land:");
+        jLabel5.setText(bundle.getString("PatRegistrationView.jLabel5.text")); // NOI18N
 
-        ort.setText("jLabel6");
+        ort.setText(bundle.getString("PatRegistrationView.ort.text")); // NOI18N
 
-        plz.setText("jLabel7");
+        plz.setText(bundle.getString("PatRegistrationView.plz.text")); // NOI18N
 
-        strasse.setText("jLabel8");
+        strasse.setText(bundle.getString("PatRegistrationView.strasse.text")); // NOI18N
 
-        land.setText("jLabel9");
+        land.setText(bundle.getString("PatRegistrationView.land.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

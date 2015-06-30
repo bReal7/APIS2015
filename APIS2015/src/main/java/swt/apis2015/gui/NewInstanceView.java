@@ -53,6 +53,7 @@ public class NewInstanceView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
         diagnosesJl = new javax.swing.JPanel();
         addDiagnoseButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -310,7 +311,7 @@ public class NewInstanceView extends javax.swing.JFrame {
             diagnosesJlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(diagnosesJlLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(diagnosesJlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -328,18 +329,20 @@ public class NewInstanceView extends javax.swing.JFrame {
                     .addComponent(additionsDiagnosesJLabel))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jScrollPane2.setViewportView(diagnosesJl);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(diagnosesJl, javax.swing.GroupLayout.PREFERRED_SIZE, 992, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 992, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(diagnosesJl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE)
         );
 
         pack();
@@ -419,6 +422,12 @@ public class NewInstanceView extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_okButtonActionPerformed
 
+    private void addSymptomsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSymptomsButtonActionPerformed
+        AdditionalSymptomsView aSv = new AdditionalSymptomsView(this);
+        aSv.setVisible(true);
+        additionSymptomeJLabel.setVisible(true);
+    }//GEN-LAST:event_addSymptomsButtonActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Map<String, String> temp = Icd10Connector.getInstance().findIcdByName(jTextField2.getText());
         int i = 0;
@@ -436,14 +445,7 @@ public class NewInstanceView extends javax.swing.JFrame {
             diaToolTipText = diaToolTipText + "<br>" + x.getIcd_code() + " " + x.getIcd_Description();
         }
         additionsDiagnosesJLabel.setToolTipText("<html>" + diaToolTipText + "</html>");
-
     }//GEN-LAST:event_addDiagnoseButtonActionPerformed
-
-    private void addSymptomsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSymptomsButtonActionPerformed
-        AdditionalSymptomsView aSv = new AdditionalSymptomsView(this);
-        aSv.setVisible(true);
-        additionSymptomeJLabel.setVisible(true);
-    }//GEN-LAST:event_addSymptomsButtonActionPerformed
 
     public void buildSymToolTip() {
         String symToolTipText = "";
@@ -473,6 +475,7 @@ public class NewInstanceView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTfSince;
     private javax.swing.JTextField lokationjTF;

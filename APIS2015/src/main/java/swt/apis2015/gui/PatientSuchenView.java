@@ -64,10 +64,11 @@ public class PatientSuchenView extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
-        Nachname.setText("Name:");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("swt/apis2015/internationalisation/PatientenSuchenView"); // NOI18N
+        Nachname.setText(bundle.getString("PatientSuchenView.Nachname.text")); // NOI18N
 
         suchenButton.setBackground(new java.awt.Color(102, 102, 255));
-        suchenButton.setText("Suchen");
+        suchenButton.setText(bundle.getString("PatientSuchenView.suchenButton.text")); // NOI18N
         suchenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 suchenButtonActionPerformed(evt);

@@ -64,52 +64,53 @@ public class SigningView extends javax.swing.JFrame {
 
         Stammdaten.setBackground(new java.awt.Color(102, 153, 255));
 
-        Nachname.setText("Vorname:");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("swt/apis2015/internationalisation/SigningView"); // NOI18N
+        Nachname.setText(bundle.getString("SigningView.Nachname.text")); // NOI18N
 
-        Vorname.setText("Geburtstag:");
+        Vorname.setText(bundle.getString("SigningView.Vorname.text")); // NOI18N
 
-        weiterBtn.setText("Weiter");
+        weiterBtn.setText(bundle.getString("SigningView.weiterBtn.text")); // NOI18N
         weiterBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 weiterBtnActionPerformed(evt);
             }
         });
 
-        OID.setText("Nachname:");
+        OID.setText(bundle.getString("SigningView.OID.text")); // NOI18N
 
         title.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        title.setText("Health Professional");
+        title.setText(bundle.getString("SigningView.title.text")); // NOI18N
 
-        ortJL.setText("Ort:");
+        ortJL.setText(bundle.getString("SigningView.ortJL.text")); // NOI18N
 
-        plzJL.setText("PLZ:");
+        plzJL.setText(bundle.getString("SigningView.plzJL.text")); // NOI18N
 
-        strasseJL.setText("Strasse:");
+        strasseJL.setText(bundle.getString("SigningView.strasseJL.text")); // NOI18N
 
-        landJL.setText("Land:");
+        landJL.setText(bundle.getString("SigningView.landJL.text")); // NOI18N
 
-        passwortJL.setText("Passwort");
+        passwortJL.setText(bundle.getString("SigningView.passwortJL.text")); // NOI18N
 
-        repeatPasswortJL.setText("Repeat passwort");
+        repeatPasswortJL.setText(bundle.getString("SigningView.repeatPasswortJL.text")); // NOI18N
 
-        jPasswordField1.setToolTipText("");
+        jPasswordField1.setToolTipText(bundle.getString("SigningView.jPasswordField1.toolTipText")); // NOI18N
 
-        jPasswordField2.setToolTipText("wrong passwort");
+        jPasswordField2.setToolTipText(bundle.getString("SigningView.jPasswordField2.toolTipText")); // NOI18N
 
         jXDatePicker1.setLinkPanel(null);
         jXDatePicker1.setName(""); // NOI18N
 
         wrongPasswortLabel.setForeground(new java.awt.Color(204, 0, 0));
-        wrongPasswortLabel.setText("wrong passwort");
+        wrongPasswortLabel.setText(bundle.getString("SigningView.wrongPasswortLabel.text")); // NOI18N
 
-        jLabel1.setText("Gehalt:");
+        jLabel1.setText(bundle.getString("SigningView.jLabel1.text")); // NOI18N
 
-        gahaltTf.setToolTipText("");
+        gahaltTf.setToolTipText(bundle.getString("SigningView.gahaltTf.toolTipText")); // NOI18N
         gahaltTf.setName("gehaltTv"); // NOI18N
 
         roleComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Doctor", "Nurse", " " }));
 
-        jLabel2.setText("Rolle:");
+        jLabel2.setText(bundle.getString("SigningView.jLabel2.text")); // NOI18N
 
         javax.swing.GroupLayout StammdatenLayout = new javax.swing.GroupLayout(Stammdaten);
         Stammdaten.setLayout(StammdatenLayout);

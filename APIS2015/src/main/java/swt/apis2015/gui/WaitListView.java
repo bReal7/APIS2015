@@ -108,7 +108,8 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         jScrollPane2.setViewportView(resultT);
 
         addPatButton.setBackground(new java.awt.Color(102, 102, 255));
-        addPatButton.setText("Patienten Aufehmen");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("swt/apis2015/internationalisation/WaitListView"); // NOI18N
+        addPatButton.setText(bundle.getString("WaitListView.addPatButton.text")); // NOI18N
         addPatButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addPatButtonActionPerformed(evt);
@@ -116,7 +117,7 @@ public class WaitListView extends javax.swing.JFrame implements Observer {
         });
 
         nextPatButton.setBackground(new java.awt.Color(102, 102, 255));
-        nextPatButton.setText("Nächster Patient");
+        nextPatButton.setText(bundle.getString("WaitListView.nextPatButton.text")); // NOI18N
         nextPatButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nextPatButtonActionPerformed(evt);

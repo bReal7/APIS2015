@@ -5,7 +5,6 @@
  */
 package swt2.apis2015.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 import swt.apis2015.enums.InsurenceContract;
 
